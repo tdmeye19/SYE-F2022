@@ -1,0 +1,185 @@
+---
+title: "Untitled"
+author: "Trent Meyer"
+date: "2022-10-06"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+
+wc_forecasts <- read_csv("data/world-cup-2018/wc_forecasts.csv")
+wc_matches <- read_csv("data/world-cup-2018/wc_matches.csv")
+```
+
+
+Given each team’s SPI rating, the process for generating win/loss/draw probabilities for a World Cup match is three-fold:
+
+1. We calculate the number of goals that we expect each team to score during the match. These projected match scores represent the number of goals that each team would need to score to keep its offensive rating exactly the same as it was going into the match.
+
+
+2. Using our projected match scores and the assumption that goal scoring in soccer follows a Poisson process, which is essentially a way to model random events at a known rate, we generate two Poisson distributions around those scores. Those give us the likelihood that each team will score no goals, one goal, two goals, etc.
+
+# Russia
+```{r}
+games <- 0:5
+plot(games, dpois(games, 2.03), type = "h")
+russiawin <- dpois(games, 2.03)
+```
+
+# Saudi Arabia
+```{r}
+plot(games, dpois(games, 0.73), type = "h")
+saudiwin <- dpois(games, 0.73)
+```
+
+3. We take the two Poisson distributions and turn them into a matrix of all possible match scores from which we can calculate the likelihood of a win, loss or draw for each team. To avoid undercounting draws, we increase the corresponding probabilities in the matrix.
+
+
+```{r}
+# predicting the probabilities that Russia will score 0:5 goals
+russiawin <- dpois(0:5, wc_matches$proj_score1[1])
+
+# predicting the probabilities that Saudi Arabia will score 0:5 goals
+saudiwin <- dpois(0:5, wc_matches$proj_score2[1])
+```
+
+```{r}
+# Turning the probabilities into matrices
+russiamatrix <- matrix(russiawin, nrow = 1, ncol = 6)
+saudimatrix <- matrix(saudiwin, nrow = 6, ncol = 1)
+
+# Multiplying the matrices to get a 6x6 matrix with probabilities
+# that each team will score that amount of goals, from which 
+# we can get the probability that each team will win
+probmatrix <- saudimatrix %*% russiamatrix 
+
+# I transposed this because using as.vector went down the columns, except I wanted
+# to go across the rows first
+probmatrix_t <- t(probmatrix)
+
+# With the transposed matrix, I wanted to create a vector, and then use cumsum()
+# to get the cumulative sum
+probvector <- as.vector(probmatrix, mode = "numeric")
+cumprob <- cumsum(probvector)
+cumprobmatrix <- matrix(cumprob, nrow = 6, ncol = 6, byrow = TRUE)
+
+rowindices <- row(cumprobmatrix)
+rowvector <- as.vector(rowindices, mode = "numeric")
+
+colindices <- col(cumprobmatrix)
+colvector <- as.vector(colindices, mode = "numeric")
+
+probindextib <- tibble(rowvector, colvector, cumprob)
+
+# generate a random uniform value
+prob_index <- runif(1, 0, 1)
+
+# find out which values fall above that probability
+which_index <- which(cumprobmatrix >= prob_index)
+
+# single out the first index, and determine if that would be a win, loss, or draw,
+# and for which team
+index_sim <- which_index[1]
+
+probindextib %>% slice(index_sim)
+
+lower.tri(cumprobmatrix, diag = FALSE)
+upper.tri(cumprobmatrix, diag = FALSE)
+diag(cumprobmatrix)
+
+
+
+# team1_index_win <- c(2:6, 9:12, 16:18, 23:24, 30)
+# index_draw <- c(1, 8, 15, 22, 29, 36)
+# team2_index_win <- c(7, 13:14, 19:21, 25:28, 31:35)
+
+# create team1point and team2points x
+# pull()
+# mutate first
+# iterate one matchup, and then iterate for all of the teams
+# send an email when I push, figure out iterating for one matchup for Tuesday
+# make a function where you return a single value where the team
+# replicate something in purrr
+# modern data science with R 7.3 map()
+
+probindextib <- probindextib %>% mutate(result = case_when(
+  rowvector > colvector ~ "Team 1 Wins",
+  rowvector == colvector ~ "Draw",
+  rowvector < colvector ~ "Team 2 Wins"
+))
+
+probindextib$result[index_sim]
+
+probindextib <- probindextib %>% 
+  mutate(team1points = case_when(result == "Draw" ~ 1,
+                                                result == "Team 1 Wins" ~ 3,
+                                                result == "Team 2 Wins" ~ 0)) %>%
+  mutate(team2points = case_when(result == "Draw" ~ 1,
+                                                result == "Team 2 Wins" ~ 3,
+                                                result == "Team 1 Wins" ~ 0))
+```
+
+```{r}
+prediction <- function(proj_score1, proj_score2) {
+  games <- 0:5
+  # predicting the probabilities that team1 will score 0:5 goals
+  team1win <- dpois(games, proj_score1)
+
+  # predicting the probabilities that team2 will score 0:5 goals
+  team2win <- dpois(games, proj_score2)
+  
+  # Turning the probabilities into matrices
+  team1matrix <- matrix(team1win, nrow = 1, ncol = 6)
+  team2matrix <- matrix(team2win, nrow = 6, ncol = 1)
+  
+  # Multiplying the matrices to get a 6x6 matrix with probabilities
+  # that each team will score that amount of goals, from which 
+  # we can get the probability that each team will win
+  probmatrix <- team2matrix %*% team1matrix 
+  
+  # I transposed this because using as.vector went down the columns, except I wanted
+  # to go across the rows first
+  probmatrix_t <- t(probmatrix)
+  
+  # With the transposed matrix, I wanted to create a vector, and then use cumsum()
+  # to get the cumulative sum
+  probvector <- as.vector(probmatrix, mode = "numeric")
+  cumprob <- cumsum(probvector)
+  cumprobmatrix <- matrix(cumprob, nrow = 6, ncol = 6, byrow = TRUE)
+  
+  rowindices <- row(cumprobmatrix)
+  rowvector <- as.vector(rowindices, mode = "numeric")
+
+  colindices <- col(cumprobmatrix)
+  colvector <- as.vector(colindices, mode = "numeric")
+
+  probindextib <- tibble(rowvector, colvector, cumprob)
+
+  # generate a random uniform value
+  prob_index <- runif(1, 0, 1)
+  
+  # find out which values fall above that probability
+  which_index <- which(cumprobmatrix >= prob_index)
+
+  # single out the first index, and determine if that would be a win, loss, or draw,
+  # and for which team
+  index_sim <- which_index[1]
+  
+  probindextib <- probindextib %>% mutate(result = case_when(
+  rowvector > colvector ~ "Team 1 Wins",
+  rowvector == colvector ~ "Draw",
+  rowvector < colvector ~ "Team 2 Wins"))
+  
+  return(probindextib$result[index_sim])
+}
+
+prediction(proj_score1 = 1.61, proj_score2 = 0.74)
+prediction(proj_score1 = 2.03, proj_score2 = 4)
+```
+
+
