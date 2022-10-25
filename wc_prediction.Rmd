@@ -184,8 +184,19 @@ prediction <- function(proj_score1, proj_score2) {
 #prediction(proj_score1 = 2.03, proj_score2 = 0.73) :: map()
 #times <- 1:10
 #match1pred <- purrr::map(times, prediction(proj_score1 = 2.03, proj_score2 = 0.73))
-match1rep <- as.data.frame(replicate(n = 1000, prediction(proj_score1 = 2.03, proj_score2 = 0.73)))
-match1rep <- match1rep %>% group_by(`replicate(n = 1000, prediction(proj_score1 = 2.03, proj_score2 = 0.73))`) %>% summarise(total = n())
+##purrr::map(1:10, ~ prediction(proj_score1 = 2.03, proj_score2 = 0.73))
+
+match1rep <- tibble(outcome = replicate(n = 1000, prediction(proj_score1 = 2.03, proj_score2 = 0.73)))
+match1rep <- match1rep %>% group_by(outcome) %>% summarise(total = n())
 match1rep <- match1rep %>% mutate(prop = total / 1000)
+
+
+
+results_vec <- purrr::map(1:1000, ~ prediction(proj_score1 = 2.03, proj_score2 = 0.73)) |>
+  unlist()
+tibble(outcome = results_vec) |> group_by(outcome) |>
+  summarise(total = n()) |>
+  mutate(prop = total / 1000)
+
 ```
 
