@@ -124,33 +124,36 @@ probindextib <- probindextib %>%
                                                 result == "Team 1 Wins" ~ 0))
 ```
 
-```{r}
-prediction <- function(proj_score1, proj_score2) {
-  games <- 0:5
-  # predicting the probabilities that team1 will score 0:5 goals
-  team1win <- dpois(games, proj_score1)
 
-  # predicting the probabilities that team2 will score 0:5 goals
-  team2win <- dpois(games, proj_score2)
+```{r}
+proj_score1 <- 4
+proj_score2 <- 0.1
+prediction <- function(proj_score1, proj_score2) {
+  goals <- 0:10
+  # predicting the probabilities that team1 will score 0:10 goals
+  team1goals <- dpois(goals, proj_score1)
+
+  # predicting the probabilities that team2 will score 0:10 goals
+  team2goals <- dpois(goals, proj_score2)
   
   # Turning the probabilities into matrices
-  team1matrix <- matrix(team1win, nrow = 1, ncol = 6)
-  team2matrix <- matrix(team2win, nrow = 6, ncol = 1)
+  team1goals_matrix <- matrix(team1goals, nrow = 1, ncol = 11)
+  team2goals_matrix <- matrix(team2goals, nrow = 11, ncol = 1)
   
-  # Multiplying the matrices to get a 6x6 matrix with probabilities
+  # Multiplying the matrices to get an 11x11 matrix with probabilities
   # that each team will score that amount of goals, from which 
   # we can get the probability that each team will win
-  probmatrix <- team2matrix %*% team1matrix 
+  goalsprobmatrix <- team2goals_matrix %*% team1goals_matrix
   
   # I transposed this because using as.vector went down the columns, except I wanted
   # to go across the rows first
-  probmatrix_t <- t(probmatrix)
+  #goalsprobmatrix_t <- t(goalsprobmatrix)
   
   # With the transposed matrix, I wanted to create a vector, and then use cumsum()
   # to get the cumulative sum
-  probvector <- as.vector(probmatrix, mode = "numeric")
-  cumprob <- cumsum(probvector)
-  cumprobmatrix <- matrix(cumprob, nrow = 6, ncol = 6, byrow = TRUE)
+  goalsprobvector <- as.vector(t(goalsprobmatrix), mode = "numeric")
+  cumprobmatrix <- matrix(cumsum(goalsprobvector), nrow = 11, ncol = 11, byrow = TRUE)
+  cumprob <- as.vector(t(cumprobmatrix), mode = "numeric")
   
   rowindices <- row(cumprobmatrix)
   rowvector <- as.vector(rowindices, mode = "numeric")
@@ -164,7 +167,7 @@ prediction <- function(proj_score1, proj_score2) {
   prob_index <- runif(1, 0, 1)
   
   # find out which values fall above that probability
-  which_index <- which(cumprobmatrix >= prob_index)
+  which_index <- which(cumprob >= prob_index)
 
   # single out the first index, and determine if that would be a win, loss, or draw,
   # and for which team
@@ -178,8 +181,11 @@ prediction <- function(proj_score1, proj_score2) {
   return(probindextib$result[index_sim])
 }
 
-prediction(proj_score1 = 1.61, proj_score2 = 0.74)
-prediction(proj_score1 = 2.03, proj_score2 = 4)
+#prediction(proj_score1 = 2.03, proj_score2 = 0.73) :: map()
+#times <- 1:10
+#match1pred <- purrr::map(times, prediction(proj_score1 = 2.03, proj_score2 = 0.73))
+match1rep <- as.data.frame(replicate(n = 1000, prediction(proj_score1 = 2.03, proj_score2 = 0.73)))
+match1rep <- match1rep %>% group_by(`replicate(n = 1000, prediction(proj_score1 = 2.03, proj_score2 = 0.73))`) %>% summarise(total = n())
+match1rep <- match1rep %>% mutate(prop = total / 1000)
 ```
-
 
