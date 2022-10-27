@@ -192,18 +192,25 @@ match1rep <- match1rep %>% group_by(outcome) %>%
   mutate(prop = total / 1000)
 
 
+wc_iter <- wc_matches |> select(proj_score1, proj_score2, everything())
+wc_iter
 
-results_vec <- purrr::map(1:1000, ~ prediction(proj_score1 = 2, proj_score2 = 0.67)) |>
+niter <- 100
+
+results_mat <- matrix(NA, nrow = nrow(wc_iter), ncol = 3)
+
+
+results_vec <- purrr::map(1:niter, ~ prediction(proj_score1 = wc_iter[1, ] |> pull(proj_score1), proj_score2 = wc_iter[1, ] |> pull(proj_score2))) |>
   unlist()
-tibble(outcome = results_vec) |> group_by(outcome) |>
+results_mat[1, ] <- tibble(outcome = results_vec) |> group_by(outcome) |>
   summarise(total = n()) |>
-  mutate(prop = total / 1000)
+  mutate(prop = total / niter)
 
 
 proj_score1list <- list(wc_matches$proj_score1)
 
 for (i in 1:3) {
- print(purrr::map(1:5, ~ prediction(proj_scores$proj_score1[i], proj_scores$proj_score2[i])))
+ print(purrr::map2(1:5, ~ prediction(proj_scores$proj_score1[i], proj_scores$proj_score2[i])))
 }
 
 
