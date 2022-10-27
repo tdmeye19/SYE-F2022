@@ -12,3 +12,7 @@
 
 # October 25
 # Fixed prediction formula, got rid of NA's, and iterated 1000 times for the first match.
+
+# October 27
+# What I am trying to do is to iterate over many matches. What I was thinking was doing a for loop
+# but where I get stuck is trying to iterate over two variables (proj_score1 and proj_score2) 1000 times.
