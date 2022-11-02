@@ -16,3 +16,10 @@
 # October 27
 # What I am trying to do is to iterate over many matches. What I was thinking was doing a for loop
 # but where I get stuck is trying to iterate over two variables (proj_score1 and proj_score2) 1000 times.
+
+# To DO
+# get the for loop working
+# create table either in loop or function to get the number of points for each team
+# sum up those points throughout just the Group stage
+# push by Tuesday 
+# email by Monday if there are quesitons I want answered on Tuesday

@@ -178,6 +178,8 @@ prediction <- function(proj_score1, proj_score2) {
   rowvector == colvector ~ "Draw",
   rowvector < colvector ~ "Team 2 Wins"))
   
+  # add in summing up the number of points for each team
+  
   return(probindextib$result[index_sim])
 }
 
