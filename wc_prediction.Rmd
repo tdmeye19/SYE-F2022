@@ -173,14 +173,31 @@ prediction <- function(proj_score1, proj_score2) {
   # and for which team
   index_sim <- which_index[1]
   
-  probindextib <- probindextib %>% mutate(result = case_when(
-  rowvector > colvector ~ "Team 1 Wins",
-  rowvector == colvector ~ "Draw",
-  rowvector < colvector ~ "Team 2 Wins"))
+  probindextib <- probindextib %>% mutate(
+    result = case_when(
+      rowvector > colvector ~ "Team 1 Wins",
+      rowvector == colvector ~ "Draw",
+      rowvector < colvector ~ "Team 2 Wins"
+    ),
+    team1points = case_when(
+      result == "Draw" ~ 1,
+      result == "Team 1 Wins" ~ 3,
+      result == "Team 2 Wins" ~ 0
+    ),
+    team2points = case_when(
+      result == "Draw" ~ 1,
+      result == "Team 2 Wins" ~ 3,
+      result == "Team 1 Wins" ~ 0
+    )
+  ) 
+  
+  result_list <- c(probindextib$result[index_sim], 
+            probindextib$team1points[index_sim],
+            probindextib$team2points[index_sim])
   
   # add in summing up the number of points for each team
   
-  return(probindextib$result[index_sim])
+  return(result_list)
 }
 
 #prediction(proj_score1 = 2.03, proj_score2 = 0.73) :: map()
@@ -208,12 +225,18 @@ results_mat <- matrix(NA, nrow = nrow(wc_iter), ncol = 3)
 proj_score1list <- list(wc_matches$proj_score1)
 
 for (i in 1:2) {
- results_vec <- purrr::map(1:niter, ~ prediction(proj_score1 = wc_iter[i, ] |> pull(proj_score1), proj_score2 = wc_iter[i, ] |> pull(proj_score2))) |>
-  unlist()
- 
- results_mat[i] <- tibble(outcome = results_vec) |> group_by(outcome) |>
-  summarise(total = n()) |>
-  mutate(prop = total / niter)
+  results_vec <-
+    purrr::map(1:niter,
+               ~ prediction(
+                 proj_score1 = wc_iter[i,] |> pull(proj_score1),
+                 proj_score2 = wc_iter[i,] |> pull(proj_score2)
+               )) |>
+    unlist()
+  
+  results_mat[i] <-
+    tibble(outcome = results_vec) |> group_by(outcome) |>
+    summarise(total = n()) |>
+    mutate(prop = total / niter)
 }
 
 
