@@ -128,7 +128,7 @@ probindextib <- probindextib %>%
 ```{r}
 proj_score1 <- 4
 proj_score2 <- 0.1
-prediction <- function(proj_score1, proj_score2) {
+predict_team1 <- function(proj_score1, proj_score2) {
   goals <- 0:10
   # predicting the probabilities that team1 will score 0:10 goals
   team1goals <- dpois(goals, proj_score1)
@@ -191,15 +191,56 @@ prediction <- function(proj_score1, proj_score2) {
     )
   ) 
   
-  result_list <- c(probindextib$result[index_sim], 
-            probindextib$team1points[index_sim],
-            probindextib$team2points[index_sim])
+  result_list <- c(probindextib$team1points[index_sim])
   
   # add in summing up the number of points for each team
   
   return(result_list)
 }
+```
 
+```{r}
+predict_team1(proj_score1 = 2, proj_score2 = 2)
+
+## one thing at a time:
+## predict the points for team 1 just for the fifth row of the data set one time
+wc_iter <- wc_matches |> select(proj_score1, proj_score2, everything()) |> slice(1:48)
+
+
+predict_team1(proj_score1 = wc_iter |> slice(5) |> pull(1),
+              proj_score2 = wc_iter |> slice(5) |> pull(2))
+
+
+## expand slowly: predict the score for team 1 for the fifth row in the data set a thousand times
+niter <- 1000
+oneteam_res <- map(1:niter, ~ predict_team1(proj_score1 = wc_iter |> slice(5) |> pull(1),
+              proj_score2 = wc_iter |> slice(5) |> pull(2))) |>
+  unlist()
+
+
+## expand slowly: predict the score for team 1 for every row of the data set:
+## wrap in for loop and change 5 to i
+niter <- 100 ## so messing around with code takes less time
+result_matrix <- matrix(NA, nrow = nrow(wc_iter), ncol = niter)
+
+for (i in 1:nrow(wc_iter)) {
+  result_matrix[i, ] <- map(1:niter, ~ predict_team1(proj_score1 = wc_iter |> slice(i) |> pull(1),
+              proj_score2 = wc_iter |> slice(i) |> pull(2))) |>
+  unlist()
+}
+
+result_matrix
+## each row is a match
+## each column is the number of points the first team earned in that iteration
+
+## can keep expanding __slowly__: focus on figuring out who is moving on in each iteration for _1_
+## group (6 matches). Once that is working, expand to figuring out who is moving on in each group
+
+```
+
+
+
+```{r}
 #prediction(proj_score1 = 2.03, proj_score2 = 0.73) :: map()
 #times <- 1:10
 #match1pred <- purrr::map(times, prediction(proj_score1 = 2.03, proj_score2 = 0.73))
@@ -216,7 +257,7 @@ wc_iter
 
 niter <- 10
 
-results_mat <- matrix(NA, nrow = nrow(wc_iter), ncol = 3)
+results <- rep(NA, nrow(wc_iter))
 
 
 
