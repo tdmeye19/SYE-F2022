@@ -204,7 +204,8 @@ predict_team1(proj_score1 = 2, proj_score2 = 2)
 
 ## one thing at a time:
 ## predict the points for team 1 just for the fifth row of the data set one time
-wc_iter <- wc_matches |> select(proj_score1, proj_score2, everything()) |> slice(1:48)
+wc_iter <- wc_matches |> select(proj_score1, proj_score2, everything()) |> slice(1, 2, 17, 19, 33, 34)
+#wc_iter <- wc_matches |> select(proj_score1, proj_score2, everything()) |> slice(1:48)
 
 
 predict_team1(proj_score1 = wc_iter |> slice(5) |> pull(1),
@@ -236,6 +237,40 @@ result_matrix
 ## can keep expanding __slowly__: focus on figuring out who is moving on in each iteration for _1_
 ## group (6 matches). Once that is working, expand to figuring out who is moving on in each group
 
+## this is getting the average team1points for the each match
+
+## Russia v Saudi Arabia
+match1_team1_result <- result_matrix[1,]
+sum(match1_team1_result)/100
+
+## Egypt v Uruguay
+match2_team1_result <- result_matrix[2,]
+sum(match2_team1_result)/100
+
+## Russia v Egypt
+match3_team1_result <- result_matrix[3,]
+sum(match3_team1_result)/100
+
+## Uruguay v Saudi Arabia
+match4_team1_result <- result_matrix[4,]
+sum(match4_team1_result)/100
+
+## Saudi Arabia v Egypt
+match5_team1_result <- result_matrix[5,]
+sum(match5_team1_result)/100
+
+## Uruguay v Russia
+match6_team1_result <- result_matrix[6,]
+sum(match6_team1_result)/100
+
+## Russia: 2.07, 2.05
+## Saudi Arabia: 0.8, 0.82
+## Egypt: was not team1
+## Uruguay: 2.56, 1.35
+
+## How to figure out what Egypt got, and where to go from here
+## Each team should have number of points for three games, however not each team
+## was team1 every match they were in.
 ```
 
 
