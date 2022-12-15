@@ -1,0 +1,284 @@
+---
+title: "Filling Station Report"
+author: "Trent Meyer"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    theme: cosmo
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Assessment of Water Bottle Filling Station Use on St. Lawrence University Campus
+
+## Introduction
+
+|             With the ever-growing population, water demand will increase by almost 40% by the year 2050, and the ability to access clean, safe drinking water will become even more of an issue (Tian 2019). One popular source of drinkable water is disposable, plastic water bottles. However, there are a multitude of issues associated with these plastic water bottles. Some estimates say that these will take centuries to decompose (Steinmetz 2013). Steinmetz (2013) also mentioned that plastic waste accumulated to 32 million tons produced in just the year 2011, and that in the city of San Francisco, only 13% of plastic was actually being recycled. In one year, there are approximately 50 billion plastic water bottles being used (Lappé 2016).  
+
+|             As a result of the problems associated with single use plastic water bottles, many communities and schools began looking for ways to reduce plastic water bottle usage, while also providing clean water that is safe to drink. One of the solutions that has become popular in many recreation centers and school campuses is water bottle filling stations, sometimes called “hydration stations.” Many of the hydration stations use carbon filters to improve the taste and filter the tap water that the spout dispenses (Brandon 2011). Using water bottle filling stations, the water bottle can be filled directly to the top, unlike water fountains where you have to tip your bottle to fill it (Marohn 2011). Marohn (2011) describes that the stations allow you to easily refill water bottles, which eliminates the need to constantly buy a new water bottle. The water bottle filling stations are tall enough so that users can set a bottle underneath of the spout, meaning it can get filled all the way to the top (Heldt 2012). The water bottle filling stations have given us the opportunity to fill and reuse plastic water bottles many times, meaning we are able to avoid using an unnecessary number of disposable plastic water bottles. Heldt (2012) explained that many of the water bottle filling stations have counters to track how many plastic water bottles are being avoided by refilling a reusable bottle with the station.  
+
+|             A common issue is that bacteria can grow on many surfaces we would not normally expect. An example of bacteria that can grow in water sources is the Legionella bacteria, which causes the disease known as Legionnaires’ disease (Sandeep 2018). Sandeep (2018) described the origin of the name “Legionnaires” which was linked to an American Legion convention in 1976. The Legionella bacteria grew on the water source, which ultimately affected a total of 182 individuals, and killed 29 of those (Sandeep 2018). This is just one of the many issues with water sources, as many are often said to be clean and filtered, but are they as clean as we truly think they are? This question was being investigated by Dr. Lorraine Olendzenski at St. Lawrence University in the Spring of 2021. She, along with a group of five students, sampled water from the water bottle filling stations on campus. They discovered multiple species of bacteria were present on the spout and base of the filling stations.  
+	
+|             We chose to parallel Dr. Olendzenski’s work with two surveys to investigate the usage of water bottle filling stations on campus by St. Lawrence University students. We administered two online surveys that were offered to St. Lawrence students over the age of 18, both those who are on-campus, those who were remote for the Spring 2021 semester. The surveys aimed to determine the frequency of use and students’ perception of the quality and safety of the water bottle filling stations. We asked questions about students’ general health including sleeping and dietary habits, along with their stress levels while on campus. Further, we wanted to determine if more students that use the water bottle filling stations undergo more specific health issues. However, one difficulty of studying disease spread is that there are a multitude of reasons someone could get sick, meaning disease is multi-factorial. This led a shift in our motivation for doing the follow-up survey, instead focusing on accessibility to and perception of the water bottle filling stations on campus. This approach was more asking why someone was using the filling station, or if they could not, why they were unable to do so.  
+
+## Methods
+
+### Design:
+|             The online surveys, which were administered through Qualtrics, included 25 questions in 2021, and 20 questions in 2022 [Appendix A] and was only offered to St. Lawrence University students over the age of 18.  The surveys were open for one week in March 2021 and April 2022, respectively. With some students remotely taking classes during the Spring 2021 semester, the survey was also offered to them to maintain proper representation of the student body on campus. The survey proposal was submitted to and accepted by the IRB on February 25, 2021. Before taking both surveys, participants had to read and accept the informed consent statement [Appendix B]. Responses were analyzed and presented in aggregate (not individually). Upon completion of the surveys, participants were eligible for a drawing for one of three Amazon gift cards ($50 each in 2021, $25 each in 2022). If participants chose to participate in the drawings, a link at the end of the surveys took them to a separate Qualtrics site, where they were asked to provide their name and e-mail address for delivery of the gift card. This information was NOT linked to the participants’ individual survey answers. Three respondents were randomly selected for each survey and received their gift card by e-mail within three weeks of the survey closure.
+
+### Implementation:
+|             Fliers, which included a brief description of the survey and a QR code, were posted in frequently traveled areas and residential buildings on campus. These frequently traveled areas included, but were not limited to, Dana Dining Hall, Sullivan Student Center, and ODY Library. During the Spring 2021 survey, a digital flier [Appendix C] was emailed to the three Residential Coordinators which they distributed to their own Community Assistants. Community Assistants were also given the opportunity to post these fliers on their individual floors in each residential hall. Stacey Olney LaPierre, the Senior Associate Director of Residence Life and Housing Operations, was able to contact those who were living off campus via emailing a digital copy of the flier along with a link. Sharon Rodriguez, the Residential Coordinator in charge of Greek and Theme houses, sent an email to the students that she oversees. This provided these upperclassmen with the opportunity to participate. Allowing those off-campus to participate was part of an effort to maintain proper representation of the whole student body, rather than just those living on-campus in dorms. 
+
+|             The digital flier was also sent to the Class Instagram pages. The class Instagram pages were able to either post the flier directly to their profile or include it on their profile story. The digital flier was also sent to the St Lawrence Instagram to be featured on the “This Week in Posters” story along with a link to the survey. 
+
+|             Only the student researcher and principal investigator had access to the recorded data, which was stored and secured in the Qualtrics software program with password protection. The recorded data was exported to a password protected Google Drive for further statistical analysis, again only accessible by the student researcher and principal investigator. The collected data was only included in internal St. Lawrence University poster sessions, along with presentations for various clubs on campus.
+
+### Statistical Analysis:
+|             The raw data was downloaded from the Qualtrics software into an Excel spreadsheet.  In order to run statistical tests, the data in a “.CSV” file was uploaded from an Excel spreadsheet to R. In R, we were able to create either bar and lollipop plots or tables for each question. For associations between filling frequency and specific illnesses, we used a linear-by-linear association test. This association test ensured that the categorical predictors were seen as ordinal and not nominal. We got a p-value from this association test, and then used the dichotomous method where we determined if the association was significant based on whether or not the p-value was greater than 0.05. 
+
+### Results:
+
+|             Firstly, the habits surrounding drinking water and water bottles in general were examined. The survey results reported that in both 2021 and 2022 approximately 89% of survey respondents consumed 1 Liter of water or more per day (Fig. 1). Relating to frequency of filling station usage, in 2021 just over half of the survey respondents reported using the water bottle filling station at least once each day, compared to 83.2% in 2022! (Fig. 2).
+
+|             Respondents were asked to report their level of agreement with six statements relating to the water bottle filling stations (Fig. 3). “Somewhat agree” and “Strongly agree” responses were grouped into “Agree”; while the same was done for the “Disagree” responses (Fig. 3).
+
+|             First, they were asked to report their level of agreement with whether the water from the filling stations was either more chemically pure, safer to drink, along with if the filling stations were clean (Fig. 3). Next, the respondents were asked about specific functions of the water bottle filling stations. They were asked to report their agreement with whether the water bottle filling stations prevent the usage of disposable plastic bottles, made it easier to drink water, and provided better tasting water (Fig. 3). 
+
+|             Figure 4 shows the most frequently used locations on campus in each year. For both years, the top two were the location on the first floor of the student center and the first floor of the library, referred to as "ODY." The location outside of Newell Fieldhouse and the fitness center was the third most frequently used in 2021, and fourth most in 2022. We see the location on the third floor of the student center, put in before the Fall 2021-Spring 2022 academic year, was quite popular (Fig. 4).
+
+|             Respondents were asked for their additional thoughts regarding the filling stations, and their responses were analyzed for key words. The most common key words in 2021 were "more", "convenience", and "filter." In 2022, we still see "more" as the most common, however "filter" and "convenience" were the next most common.
+
+
+```{r gendertable, echo=FALSE, message=FALSE, warning=FALSE, fig.cap="Table 1: Self-reported demographics"}
+load("survey_full.rda")
+library(kableExtra)
+library(tidyverse)
+summarytable <- function(inputvariable) {
+  group_var <- enquo(inputvariable) ## create a "quosure" that puts the 
+  ## variable you want to group_by in quotes
+  
+  ## in the next line, !! then unquotes the variable again for use in 
+  ## the group_by() function
+  survey_full %>% group_by(!!group_var, year) %>% summarise(totalrespondents = n()) %>%
+    mutate(yeartotal = if_else(year == 2021,
+                               true = 186,
+                               false = 155)) %>%
+    mutate(proportion = totalrespondents/yeartotal)}
+#gendertable <- summarytable(survey_full$gender)) %>% kable()
+#gendertable21 <- gendertable %>% filter(year == 2021) %>% select(1, 3, 5) %>% kable()
+#gendertable22 <- gendertable %>% filter(year == 2022) %>% select(1, 3, 5)
+
+survey_full <- survey_full %>% mutate(gender = fct_recode(gender, GQGNC = "Genderqueer / Gender Non-Conforming"))
+
+demtable22 <- survey_full %>% filter(year == 2022) %>% group_by(gender, year) %>% summarise(totalrespondents = n()) %>% mutate(yeartotal = if_else(year == 2021,
+                               true = 186,
+                               false = 155)) %>%
+  mutate(prop2022 = totalrespondents/yeartotal) %>% select(1, 5)
+
+survey_full %>% filter(year == 2021) %>% group_by(gender, year) %>% summarise(totalrespondents = n()) %>% 
+  mutate(yeartotal = if_else(year == 2021,
+                               true = 186,
+                               false = 155)) %>%
+  filter(gender != "Prefer not to state") %>%
+  mutate(prop2021 = totalrespondents/yeartotal) %>% 
+  select(1, 5) %>% ungroup() %>% mutate(prop2022 = demtable22$prop2022) %>% kable(caption = "Table 1: Gender Demographics", digits = 2, table.attr = "style='width:45%;'")
+
+load(file = "survey_full.rda")
+classtable22 <- survey_full %>% filter(year == 2022) %>% group_by(classyear, year) %>% summarise(totalrespondents = n()) %>% mutate(yeartotal = if_else(year == 2021,
+                               true = 186,
+                               false = 155)) %>%
+  mutate(prop2022 = totalrespondents/yeartotal) %>% 
+  filter(classyear != "Prefer not to state") %>%
+  select(1, 5)
+
+survey_full %>% filter(year == 2021) %>% group_by(classyear, year) %>% 
+  summarise(totalrespondents = n()) %>% 
+  mutate(yeartotal = if_else(year == 2021,
+                               true = 186,
+                               false = 155)) %>%
+  filter(classyear != "Prefer not to state") %>%
+  mutate(prop2021 = totalrespondents/yeartotal) %>% 
+  select(1, 5) %>% ungroup() %>% mutate(prop2022 = classtable22$prop2022) %>% kable(caption = "Table 2: Class Year Demographics", digits = 2, table.attr = "style='width:45%;'")
+```
+
+#
+
+```{r, fig.cap="Figure 1: Self-reported daily water consumption", echo=FALSE, warning=FALSE, message=FALSE}
+load(file = "survey_full.rda")
+library(tidyverse)
+
+survey_full <- survey_full %>% mutate(year = fct_relevel(year, c("2022", "2021"))) %>%
+  filter(filling_frequency != "",
+         filling_frequency != "Prefer not to state")
+
+## creating a plot colored by year, that shows the proportion of each factor level
+(ggplot(data = survey_full, aes(x = daily_water, y = after_stat(prop),
+                               fill = year, group = year)) +
+  geom_bar(position = "dodge") +
+  coord_flip() +
+  scale_fill_brewer(palette = "Set1", breaks = c("2021", "2022")) +
+  theme_minimal(base_size = 14) +
+  labs(title = "Daily Water Consumption",
+       x = "Total Water Consumed",
+       y = "Proportion of Respondents",
+       colour = "Test") + 
+  theme(axis.text.x = element_text(size = 12),
+        axis.text.y = element_text(size = 12)))
+```
+
+#
+
+```{r fillingfrequency, fig.cap="Figure 2: Self-reported filling station frequency of use (2021 n = 186, 2022 n = 155)", echo=FALSE, warning=FALSE, message=FALSE, fig.width=7}
+load(file = "survey_full.rda")
+library(tidyverse)
+survey_full <- survey_full %>% mutate(year = fct_relevel(year, c("2022", "2021"))) %>%
+  filter(filling_frequency != "",
+         filling_frequency != "Prefer not to state")
+## filter out "" values
+## drop that level from the factor after filtering
+## also get rid of Prefer not to state and then add in caption
+ggplot(data = survey_full, aes(x = filling_frequency, y = after_stat(prop),
+                               fill = year, group = year)) +
+  geom_bar(position = "dodge") + 
+  coord_flip() +
+  scale_fill_brewer(palette = "Set1", breaks = c("2021", "2022")) +
+  theme_minimal(base_size = 14) +
+  labs(title = "Frequency of Filling Station Usage",
+       x = "Frequency",
+       y = "Proportion of Respondents",
+       colour = "Test") + 
+  theme(axis.text.x = element_text(size = 12),
+        axis.text.y = element_text(size = 12),
+        legend.position = "bottom")
+  
+```
+
+#
+
+```{r agreementstatements, fig.cap="Figure 3: Respondents' perception of filling stations, pooled “Somewhat agree” and “Strongly Agree” responses as “Agree”; the same was done for the “Disagree” responses", echo=FALSE, warning=FALSE, message=FALSE, fig.width=8}
+library(gridExtra)
+load(file = "survey_full.rda")
+
+survey_full <- survey_full %>% mutate(year = fct_relevel(year, c("2022", "2021")))
+
+survey_full <- survey_full %>% filter(chemically_pure != "",
+                                      safer_to_drink != "",
+                                      clean != "")
+
+library(forcats)
+survey_full$chemically_pure <- fct_collapse(survey_full$chemically_pure, Agree = c("Somewhat agree", "Strongly agree"))
+
+survey_full$chemically_pure <- fct_collapse(survey_full$chemically_pure, Disagree = c("Somewhat disagree", "Strongly disagree"))
+
+chempureplot <- ggplot(data = survey_full, aes(x = chemically_pure, y = after_stat(prop),
+                               fill = year, group = year)) +
+  geom_bar(position = "dodge") +
+  coord_flip() +
+  scale_fill_brewer(palette = "Set1", breaks = c("2021", "2022")) +
+  labs(title = "Water from the Filling Stations is more Chemically Pure",
+       x = "Level of Agreement",
+       y = "Proportion of Respondents") + 
+  theme_minimal(base_size = 12) +
+  theme(axis.text.x = element_text(size = 12),
+        axis.text.y = element_text(size = 12),
+        axis.title.y = element_text(size = 12))
+
+survey_full$safer_to_drink <- fct_collapse(survey_full$safer_to_drink, Agree = c("Somewhat agree", "Strongly agree"))
+
+survey_full$safer_to_drink <- fct_collapse(survey_full$safer_to_drink, Disagree = c("Somewhat disagree", "Strongly disagree"))
+
+safertodrinkplot <- ggplot(data = survey_full, aes(x = safer_to_drink, y = after_stat(prop),
+                               fill = year, group = year)) +
+  geom_bar(position = "dodge") +
+  coord_flip() +
+  scale_fill_brewer(palette = "Set1", breaks = c("2021", "2022")) +
+  labs(title = "Water from the Filling Stations is Safer to Drink",
+       x = "Level of Agreement",
+       y = "Proportion of Respondents") +
+  theme_minimal(base_size = 12) +
+  theme(axis.text.x = element_text(size = 12),
+        axis.text.y = element_text(size = 12),
+        axis.title.y = element_text(size = 12))
+
+survey_full$clean <- fct_collapse(survey_full$clean, Agree = c("Somewhat agree", "Strongly agree"))
+
+survey_full$clean <- fct_collapse(survey_full$clean, Disagree = c("Somewhat disagree", "Strongly disagree"))
+
+cleanplot <- ggplot(data = survey_full, aes(x = clean, y = after_stat(prop),
+                               fill = year, group = year)) +
+  geom_bar(position = "dodge") +
+  coord_flip() +
+  scale_fill_brewer(palette = "Set1", breaks = c("2021", "2022")) +
+  labs(title = "The Filling Stations are Clean",
+       x = "Level of Agreement",
+       y = "Proportion of Respondents") + 
+  theme_minimal(base_size = 12) +
+  theme(axis.text.x = element_text(size = 12),
+        axis.text.y = element_text(size = 12),
+        axis.title.y = element_text(size = 12))
+
+agreementplots <- grid.arrange(chempureplot, safertodrinkplot, cleanplot)
+```
+
+#
+
+```{r locationplot,  fig.cap="Figure 4: Top five most used filling stations each year, top: 2021, bottom: 2022",echo=FALSE, warning=FALSE, message=FALSE, fig.width=8}
+load(file = "location_df21.rda")
+load(file = "location_df22.rda")
+
+location_df21 <- location_df21 %>% mutate(location = fct_recode(location,
+                                                                 `Student Center - 1st Floor` = "sc1",
+                                                                 `ODY - Main Floor` = "odymain",
+                                                                 Newell = "newell",
+                                                                 `Fox Hall Lobby` = "madilllobby",
+                                                                 Sykes = "sykes"))
+
+location_df22 <- location_df22 %>% mutate(location = fct_recode(location,
+                                                                 `Student Center - 1st Floor` = "sc1",
+                                                                 `ODY - Main Floor` = "odymain",
+                                                                 Newell = "newell",
+                                                                 `Student Center - 3rd Floor` = "sc3",
+                                                                 Whitman = "whitman"))
+
+location_df22_top <- location_df22 %>% arrange(desc(totalrespondents)) %>% ungroup %>% slice(1:5)
+
+## creating a plot to see which locations are used the most often in '22
+locationplot22 <- ggplot(data = location_df22_top, aes(x = fct_reorder(location, totalrespondents), y = prop)) +
+  geom_point(size = 5) + 
+  geom_segment(aes(x=location, xend=location, y=0, yend=prop), size = 1.5) +
+  coord_flip() +
+  labs(y = "Proportion of Respondents", x = "Location") +
+  theme_minimal(base_size = 13) +
+  ylim(0, 0.9)
+
+## legend on bottom instead of side
+
+location_df21_top <- location_df21 %>% arrange(desc(totalrespondents)) %>% ungroup() %>% slice(1:5)
+
+## creating a plot to see which locations are used the most often in '21
+locationplot21 <- ggplot(data = location_df21_top, aes(x = fct_reorder(location, totalrespondents), y = prop)) +
+  geom_point(size = 5) + 
+  geom_segment(aes(x=location, xend=location, y=0, yend=prop), size = 1.5) +
+  coord_flip() +
+  labs(y = "Proportion of Respondents", x = "Location") +
+  theme_minimal(base_size = 13) +
+  ylim(0, 0.9)
+
+locationplotfull <- grid.arrange(locationplot21, locationplot22)
+## do a top 5 and change scale so that they match 
+## x lim
+```
+
+#
+
+## Discussion
+
+|             One thing to note is that the motivation behind the surveys shifted away from determining if illness was caused by filling station usage. It was almost impossible to pinpoint exactly which filling station could have caused someone to become ill. Also, we can not be completely sure that the filling station even caused illness, as illnesses are multi-factorial. Our motivation shifted more towards accessibility and perception of filling stations on campus, rather than the illness question. 
+
+|             One obvious thing we can understand is that students at St. Lawrence University use the filling stations. They care about where their water comes from, and expressed lots of interest in these surveys. They seemed to show lots of concern about the cleanliness and maintenance of the filling stations, as well as the accessibility across campus. One issue is that not all residential buildings has these filling stations. During the Fall 2020-Spring 2021 semesters, students were mostly not allowed to access other residential buildings besides the one they lived in. This created issues for students who did not have a filling station in their building.
+
+|             Students were also concerned about accessibility throughout the day where they have their classes. Some students who have classes in say Atwood Hall have access, while others in Johnson Hall of Science do not, meaning they have to walk to other buildings just to use a filling station. Accessibility to water throughout the day is important to all students, specifically athletes, who drink lots of water. Students here try their best to avoid plastic, single-use water bottles, so one can see almost everyone carrying around a reusable bottle. The older regular water fountains do not fill up bottles all the way, and many students simply avoid them because they are outdated.
+
+|             Adding more filling stations across campus is something that many survey respondents agreed on. However, they also cared about the maintenance and cleanliness of them, meaning their filters need to be replaced more frequently, and maintenance be completed in a timely manner, rather than weeks after. Accessibility to water is something many take for granted, and St. Lawrence University was shown how difficult it was to access free, clean water during the COVID-19 pandemic.
