@@ -52,7 +52,8 @@ knitr::opts_chunk$set(echo = TRUE)
 
 
 ```{r gendertable, echo=FALSE, message=FALSE, warning=FALSE, fig.cap="Table 1: Self-reported demographics"}
-load("survey_full.rda")
+library(here)
+load(here("data/survey_full.rda"))
 library(kableExtra)
 library(tidyverse)
 summarytable <- function(inputvariable) {
@@ -85,7 +86,6 @@ survey_full %>% filter(year == 2021) %>% group_by(gender, year) %>% summarise(to
   mutate(prop2021 = totalrespondents/yeartotal) %>% 
   select(1, 5) %>% ungroup() %>% mutate(prop2022 = demtable22$prop2022) %>% kable(caption = "Table 1: Gender Demographics", digits = 2, table.attr = "style='width:45%;'")
 
-load(file = "survey_full.rda")
 classtable22 <- survey_full %>% filter(year == 2022) %>% group_by(classyear, year) %>% summarise(totalrespondents = n()) %>% mutate(yeartotal = if_else(year == 2021,
                                true = 186,
                                false = 155)) %>%
@@ -106,7 +106,6 @@ survey_full %>% filter(year == 2021) %>% group_by(classyear, year) %>%
 #
 
 ```{r, fig.cap="Figure 1: Self-reported daily water consumption", echo=FALSE, warning=FALSE, message=FALSE}
-load(file = "survey_full.rda")
 library(tidyverse)
 
 survey_full <- survey_full %>% mutate(year = fct_relevel(year, c("2022", "2021"))) %>%
@@ -131,7 +130,6 @@ survey_full <- survey_full %>% mutate(year = fct_relevel(year, c("2022", "2021")
 #
 
 ```{r fillingfrequency, fig.cap="Figure 2: Self-reported filling station frequency of use (2021 n = 186, 2022 n = 155)", echo=FALSE, warning=FALSE, message=FALSE, fig.width=7}
-load(file = "survey_full.rda")
 library(tidyverse)
 survey_full <- survey_full %>% mutate(year = fct_relevel(year, c("2022", "2021"))) %>%
   filter(filling_frequency != "",
@@ -159,7 +157,6 @@ ggplot(data = survey_full, aes(x = filling_frequency, y = after_stat(prop),
 
 ```{r agreementstatements, fig.cap="Figure 3: Respondents' perception of filling stations, pooled “Somewhat agree” and “Strongly Agree” responses as “Agree”; the same was done for the “Disagree” responses", echo=FALSE, warning=FALSE, message=FALSE, fig.width=8}
 library(gridExtra)
-load(file = "survey_full.rda")
 
 survey_full <- survey_full %>% mutate(year = fct_relevel(year, c("2022", "2021")))
 
@@ -225,8 +222,8 @@ agreementplots <- grid.arrange(chempureplot, safertodrinkplot, cleanplot)
 #
 
 ```{r locationplot,  fig.cap="Figure 4: Top five most used filling stations each year, top: 2021, bottom: 2022",echo=FALSE, warning=FALSE, message=FALSE, fig.width=8}
-load(file = "location_df21.rda")
-load(file = "location_df22.rda")
+load(file = here("data/location_df21.rda"))
+load(file = here("data/location_df22.rda"))
 
 location_df21 <- location_df21 %>% mutate(location = fct_recode(location,
                                                                  `Student Center - 1st Floor` = "sc1",

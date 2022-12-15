@@ -36,7 +36,8 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r, fig.cap="Figure 1: Proportion of times each team advanced out of their respective group"}
 library(tidyverse)
-load("wc_long_iter_total.rda")
+library(here)
+load(here("data/wc_long_iter_total.rda"))
 ggplot(data = wc_long_iter_total, aes(x = proptimes, y = fct_reorder(team, proptimes))) +
   geom_point() + 
   geom_segment(data = wc_long_iter_total, aes(x = 0, xend = proptimes, y = team, yend = team)) +
