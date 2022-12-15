@@ -118,16 +118,17 @@ predict_team1 <- function(proj_score1, proj_score2) {
 ```{r}
 ## expand slowly: predict the score for team 1 for every row of the data set:
 ## wrap in for loop and change 5 to i
-niter <- 1000 ## so messing around with code takes less time
+niter <- 100 ## so messing around with code takes less time
 result_matrix_full <- matrix(NA, nrow = nrow(wc_matches_full), ncol = niter)
 
 for (i in 1:nrow(wc_matches_full)) {
   result_matrix_full[i, ] <- map(1:niter, ~ predict_team1(proj_score1 = wc_matches_full |> slice(i) |> pull(1),
               proj_score2 = wc_matches_full |> slice(i) |> pull(2))) |>
   unlist()
+  print(i)
 }
 
-result_matrix_full
+nrow(result_matrix_full)
 ```
 
 ```{r}
@@ -135,10 +136,10 @@ results_df_full <- as.matrix(result_matrix_full)
 
 wc_long_full <- bind_cols(wc_matches_full, results_df_full) %>%
   select(-c(3:5, 8:20)) %>%
-  pivot_longer(cols = 6:15,
+  pivot_longer(cols = starts_with("..."),
                names_to = "iteration",
                values_to = "team1points") %>%
-  pivot_longer(cols = 3:4,
+  pivot_longer(cols = c(3, 4),
                names_to = "which_team",
                values_to = "team") %>%
   mutate(iteration = as.factor(iteration))
@@ -199,7 +200,9 @@ wc_long_iter_total <- wc_long_iter_full %>%
 ggplot(data = wc_long_iter_total, aes(x = proptimes, y = fct_reorder(team, proptimes))) +
   geom_point() + 
   geom_segment(data = wc_long_iter_total, aes(x = 0, xend = proptimes, y = team, yend = team)) +
-  facet_wrap(~group, scales = "free_y")
+  facet_wrap(~group, scales = "free_y") +
+  theme_minimal() +
+  labs(y = "Team")
 ## Costa Rica did not make it through, so when I went to add up the number of times they went through it was zero, and then I filtered out went_through == 0
 
 save(wc_long_iter_total, file = "wc_long_iter_total.rda")
