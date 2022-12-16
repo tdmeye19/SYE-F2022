@@ -26,10 +26,10 @@ knitr::opts_chunk$set(echo = TRUE)
 ## Methods
 
 ### Design:
-|             The online surveys, which were administered through Qualtrics, included 25 questions in 2021, and 20 questions in 2022 [Appendix A] and was only offered to St. Lawrence University students over the age of 18.  The surveys were open for one week in March 2021 and April 2022, respectively. With some students remotely taking classes during the Spring 2021 semester, the survey was also offered to them to maintain proper representation of the student body on campus. The survey proposal was submitted to and accepted by the IRB on February 25, 2021. Before taking both surveys, participants had to read and accept the informed consent statement [Appendix B]. Responses were analyzed and presented in aggregate (not individually). Upon completion of the surveys, participants were eligible for a drawing for one of three Amazon gift cards ($50 each in 2021, $25 each in 2022). If participants chose to participate in the drawings, a link at the end of the surveys took them to a separate Qualtrics site, where they were asked to provide their name and e-mail address for delivery of the gift card. This information was NOT linked to the participants’ individual survey answers. Three respondents were randomly selected for each survey and received their gift card by e-mail within three weeks of the survey closure.
+|             The online surveys, which were administered through Qualtrics, included 25 questions in 2021, and 20 questions in 2022 (questions available on on the project's [GitHub Repository](https://github.com/tdmeye19/SYE-F2022)) and was only offered to St. Lawrence University students over the age of 18.  The surveys were open for one week in March 2021 and April 2022, respectively. With some students remotely taking classes during the Spring 2021 semester, the survey was also offered to them to maintain proper representation of the student body on campus. The survey proposal was submitted to and accepted by the IRB on February 25, 2021. Before taking both surveys, participants had to read and accept the informed consent statement (also available on the project's [GitHub Repository](https://github.com/tdmeye19/SYE-F2022)). Responses were analyzed and presented in aggregate (not individually). Upon completion of the surveys, participants were eligible for a drawing for one of three Amazon gift cards ($50 each in 2021, $25 each in 2022). If participants chose to participate in the drawings, a link at the end of the surveys took them to a separate Qualtrics site, where they were asked to provide their name and e-mail address for delivery of the gift card. This information was NOT linked to the participants’ individual survey answers. Three respondents were randomly selected for each survey and received their gift card by e-mail within three weeks of the survey closure.
 
 ### Implementation:
-|             Fliers, which included a brief description of the survey and a QR code, were posted in frequently traveled areas and residential buildings on campus. These frequently traveled areas included, but were not limited to, Dana Dining Hall, Sullivan Student Center, and ODY Library. During the Spring 2021 survey, a digital flier [Appendix C] was emailed to the three Residential Coordinators which they distributed to their own Community Assistants. Community Assistants were also given the opportunity to post these fliers on their individual floors in each residential hall. Stacey Olney LaPierre, the Senior Associate Director of Residence Life and Housing Operations, was able to contact those who were living off campus via emailing a digital copy of the flier along with a link. Sharon Rodriguez, the Residential Coordinator in charge of Greek and Theme houses, sent an email to the students that she oversees. This provided these upperclassmen with the opportunity to participate. Allowing those off-campus to participate was part of an effort to maintain proper representation of the whole student body, rather than just those living on-campus in dorms. 
+|             Fliers, which included a brief description of the survey and a QR code, were posted in frequently traveled areas and residential buildings on campus. These frequently traveled areas included, but were not limited to, Dana Dining Hall, Sullivan Student Center, and ODY Library. During the Spring 2021 survey, a digital flier was emailed to the three Residential Coordinators which they distributed to their own Community Assistants. Community Assistants were also given the opportunity to post these fliers on their individual floors in each residential hall. Stacey Olney LaPierre, the Senior Associate Director of Residence Life and Housing Operations, was able to contact those who were living off campus via emailing a digital copy of the flier along with a link. Sharon Rodriguez, the Residential Coordinator in charge of Greek and Theme houses, sent an email to the students that she oversees. This provided these upperclassmen with the opportunity to participate. Allowing those off-campus to participate was part of an effort to maintain proper representation of the whole student body, rather than just those living on-campus in dorms. 
 
 |             The digital flier was also sent to the Class Instagram pages. The class Instagram pages were able to either post the flier directly to their profile or include it on their profile story. The digital flier was also sent to the St Lawrence Instagram to be featured on the “This Week in Posters” story along with a link to the survey. 
 
@@ -39,17 +39,6 @@ knitr::opts_chunk$set(echo = TRUE)
 |             The raw data was downloaded from the Qualtrics software into an Excel spreadsheet.  In order to run statistical tests, the data in a “.CSV” file was uploaded from an Excel spreadsheet to R. In R, we were able to create either bar and lollipop plots or tables for each question. For associations between filling frequency and specific illnesses, we used a linear-by-linear association test. This association test ensured that the categorical predictors were seen as ordinal and not nominal. We got a p-value from this association test, and then used the dichotomous method where we determined if the association was significant based on whether or not the p-value was greater than 0.05. 
 
 ### Results:
-
-|             Firstly, the habits surrounding drinking water and water bottles in general were examined. The survey results reported that in both 2021 and 2022 approximately 89% of survey respondents consumed 1 Liter of water or more per day (Fig. 1). Relating to frequency of filling station usage, in 2021 just over half of the survey respondents reported using the water bottle filling station at least once each day, compared to 83.2% in 2022! (Fig. 2).
-
-|             Respondents were asked to report their level of agreement with six statements relating to the water bottle filling stations (Fig. 3). “Somewhat agree” and “Strongly agree” responses were grouped into “Agree”; while the same was done for the “Disagree” responses (Fig. 3).
-
-|             First, they were asked to report their level of agreement with whether the water from the filling stations was either more chemically pure, safer to drink, along with if the filling stations were clean (Fig. 3). Next, the respondents were asked about specific functions of the water bottle filling stations. They were asked to report their agreement with whether the water bottle filling stations prevent the usage of disposable plastic bottles, made it easier to drink water, and provided better tasting water (Fig. 3). 
-
-|             Figure 4 shows the most frequently used locations on campus in each year. For both years, the top two were the location on the first floor of the student center and the first floor of the library, referred to as "ODY." The location outside of Newell Fieldhouse and the fitness center was the third most frequently used in 2021, and fourth most in 2022. We see the location on the third floor of the student center, put in before the Fall 2021-Spring 2022 academic year, was quite popular (Fig. 4).
-
-|             Respondents were asked for their additional thoughts regarding the filling stations, and their responses were analyzed for key words. The most common key words in 2021 were "more", "convenience", and "filter." In 2022, we still see "more" as the most common, however "filter" and "convenience" were the next most common.
-
 
 ```{r gendertable, echo=FALSE, message=FALSE, warning=FALSE, fig.cap="Table 1: Self-reported demographics"}
 library(here)
@@ -103,7 +92,8 @@ survey_full %>% filter(year == 2021) %>% group_by(classyear, year) %>%
   select(1, 5) %>% ungroup() %>% mutate(prop2022 = classtable22$prop2022) %>% kable(caption = "Table 2: Class Year Demographics", digits = 2, table.attr = "style='width:45%;'")
 ```
 
-#
+
+|             Firstly, the habits surrounding drinking water and water bottles in general were examined. The survey results reported that in both 2021 and 2022 approximately 89% of survey respondents consumed 1 Liter of water or more per day (Fig. 1). Relating to frequency of filling station usage, in 2021 just over half of the survey respondents reported using the water bottle filling station at least once each day, compared to 83.2% in 2022! (Fig. 2).
 
 ```{r, fig.cap="Figure 1: Self-reported daily water consumption", echo=FALSE, warning=FALSE, message=FALSE}
 library(tidyverse)
@@ -153,7 +143,9 @@ ggplot(data = survey_full, aes(x = filling_frequency, y = after_stat(prop),
   
 ```
 
-#
+|             Respondents were asked to report their level of agreement with six statements relating to the water bottle filling stations (Fig. 3). “Somewhat agree” and “Strongly agree” responses were grouped into “Agree”; while the same was done for the “Disagree” responses (Fig. 3).
+
+|             First, they were asked to report their level of agreement with whether the water from the filling stations was either more chemically pure, safer to drink, along with if the filling stations were clean (Fig. 3). Next, the respondents were asked about specific functions of the water bottle filling stations. They were asked to report their agreement with whether the water bottle filling stations prevent the usage of disposable plastic bottles, made it easier to drink water, and provided better tasting water (Fig. 3). 
 
 ```{r agreementstatements, fig.cap="Figure 3: Respondents' perception of filling stations, pooled “Somewhat agree” and “Strongly Agree” responses as “Agree”; the same was done for the “Disagree” responses", echo=FALSE, warning=FALSE, message=FALSE, fig.width=8}
 library(gridExtra)
@@ -219,7 +211,7 @@ cleanplot <- ggplot(data = survey_full, aes(x = clean, y = after_stat(prop),
 agreementplots <- grid.arrange(chempureplot, safertodrinkplot, cleanplot)
 ```
 
-#
+|             Figure 4 shows the most frequently used locations on campus in each year. For both years, the top two were the location on the first floor of the student center and the first floor of the library, referred to as "ODY." The location outside of Newell Fieldhouse and the fitness center was the third most frequently used in 2021, and fourth most in 2022. We see the location on the third floor of the student center, put in before the Fall 2021-Spring 2022 academic year, was quite popular (Fig. 4).
 
 ```{r locationplot,  fig.cap="Figure 4: Top five most used filling stations each year, top: 2021, bottom: 2022",echo=FALSE, warning=FALSE, message=FALSE, fig.width=8}
 load(file = here("data/location_df21.rda"))
@@ -268,7 +260,8 @@ locationplotfull <- grid.arrange(locationplot21, locationplot22)
 ## x lim
 ```
 
-#
+
+|             Respondents were asked for their additional thoughts regarding the filling stations, and their responses were analyzed for key words. The most common key words in 2021 were "more", "convenience", and "filter." In 2022, we still see "more" as the most common, however "filter" and "convenience" were the next most common.
 
 ## Discussion
 
@@ -279,3 +272,21 @@ locationplotfull <- grid.arrange(locationplot21, locationplot22)
 |             Students were also concerned about accessibility throughout the day where they have their classes. Some students who have classes in say Atwood Hall have access, while others in Johnson Hall of Science do not, meaning they have to walk to other buildings just to use a filling station. Accessibility to water throughout the day is important to all students, specifically athletes, who drink lots of water. Students here try their best to avoid plastic, single-use water bottles, so one can see almost everyone carrying around a reusable bottle. The older regular water fountains do not fill up bottles all the way, and many students simply avoid them because they are outdated.
 
 |             Adding more filling stations across campus is something that many survey respondents agreed on. However, they also cared about the maintenance and cleanliness of them, meaning their filters need to be replaced more frequently, and maintenance be completed in a timely manner, rather than weeks after. Accessibility to water is something many take for granted, and St. Lawrence University was shown how difficult it was to access free, clean water during the COVID-19 pandemic.
+
+## Works Cited
+
+Brandon J, Thirsty? Inc. 2011; 33(8): 43.
+
+Heldt D. Iowa Colleges Offer Alternatives to Bottled Water. Community College Week. 2012; 24(20): 13.
+
+Lappé A, Un-bottling Water. Earth Island Journal. 2016; 31(1): 13.
+
+Marohn K, et al. BYOB and refill at water stations. USA Today. 2011.
+
+Sandeep K.R, et al. Legionnaires Disease. Nitte University Journal of Health Science. 2018; 8(2): 49-52.
+
+Steinmetz K. San Francisco May Be First Major City to Ban Plastic Water Bottles. Time.com. December 2013: 1.
+
+Tian F, et al. Dynamics and driving mechanisms of asymmetric human water consumption during alternating wet and dry periods. Hydrological Sciences Journal. 2019; 64(5): 507-524.
+
+
