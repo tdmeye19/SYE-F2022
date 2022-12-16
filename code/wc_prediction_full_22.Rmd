@@ -1,44 +1,45 @@
 ---
-title: "Untitled"
+title: "wc_prediction_22"
 author: "Trent Meyer"
-date: "2022-12-08"
+date: "`r Sys.Date()`"
 output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 ```
 
 ```{r}
 library(tidyverse)
-wc_matches <- read_csv("data/world-cup-2018/wc_matches.csv")
+library(here)
+wc_matches_22 <- read_csv(here("data/wc_matches_22.csv"))
 ```
 
 ```{r}
-wc_matches_full <- wc_matches %>% slice(1:48) %>% mutate(group = case_when(
-  team1 == "Russia" | team1 == "Saudi Arabia" |
-    team1 == "Egypt" | team1 == "Uruguay" ~ "A",
+wc_matches_full_22 <- wc_matches_22 %>% slice(1:48) %>% mutate(group = case_when(
+  team1 == "Qatar" | team1 == "Ecuador" |
+    team1 == "Senegal" | team1 == "Netherlands" ~ "A",
   
-  team1 == "Spain" | team1 == "Portugal" |
-    team1 == "Iran" | team1 == "Morocco" ~ "B",
+  team1 == "England" | team1 == "USA" |
+    team1 == "Iran" | team1 == "Wales" ~ "B",
   
-  team1 == "France" | team1 == "Denmark" |
-    team1 == "Peru" | team1 == "Australia" ~ "C",
+  team1 == "Argentina" | team1 == "Saudi Arabia" |
+    team1 == "Mexico" | team1 == "Poland" ~ "C",
   
-  team1 == "Croatia" | team1 == "Argentina" |
-    team1 == "Nigeria" | team1 == "Iceland" ~ "D",
+  team1 == "France" | team1 == "Australia" |
+    team1 == "Denmark" | team1 == "Tunisia" ~ "D",
+  
+  team1 == "Spain" | team1 == "Germany" |
+    team1 == "Japan" | team1 == "Costa Rica" ~ "E",
+  
+  team1 == "Belgium" | team1 == "Canada" |
+    team1 == "Morocco" | team1 == "Croatia" ~ "F",
   
   team1 == "Brazil" | team1 == "Serbia" |
-    team1 == "Switzerland" | team1 == "Costa Rica" ~ "E",
+    team1 == "Switzerland" | team1 == "Cameroon" ~ "G",
   
-  team1 == "Sweden" | team1 == "Mexico" |
-    team1 == "South Korea" | team1 == "Germany" ~ "F",
-  
-  team1 == "Belgium" | team1 == "England" |
-    team1 == "Tunisia" | team1 == "Panama" ~ "G",
-  
-  team1 == "Colombia" | team1 == "Japan" |
-    team1 == "Senegal" | team1 == "Poland" ~ "H"
+  team1 == "Portugal" | team1 == "Ghana" |
+    team1 == "Uruguay" | team1 == "South Korea" ~ "H"
 )) %>%
   select(proj_score1, proj_score2, everything())
 ```
@@ -115,25 +116,25 @@ predict_team1 <- function(proj_score1, proj_score2) {
 }
 ```
 
-```{r}
+```{r, cache=TRUE}
 ## expand slowly: predict the score for team 1 for every row of the data set:
 ## wrap in for loop and change 5 to i
 niter <- 1000 ## so messing around with code takes less time
-result_matrix_full <- matrix(NA, nrow = nrow(wc_matches_full), ncol = niter)
+result_matrix_full_22 <- matrix(NA, nrow = nrow(wc_matches_full_22), ncol = niter)
 
 set.seed(847267)
-for (i in 1:nrow(wc_matches_full)) {
-  result_matrix_full[i, ] <- map(1:niter, ~ predict_team1(proj_score1 = wc_matches_full |> slice(i) |> pull(1),
-              proj_score2 = wc_matches_full |> slice(i) |> pull(2))) |>
+for (i in 1:nrow(wc_matches_full_22)) {
+  result_matrix_full_22[i, ] <- map(1:niter, ~ predict_team1(proj_score1 = wc_matches_full_22 |> slice(i) |> pull(1),
+              proj_score2 = wc_matches_full_22 |> slice(i) |> pull(2))) |>
   unlist()
   print(i)
 }
 
-#result_matrix_full
+#result_matrix_full_22
 ```
 
 ```{r}
-wc_long_full <- bind_cols(wc_matches_full, result_matrix_full) %>%
+wc_long_full_22 <- bind_cols(wc_matches_full_22, result_matrix_full_22) %>%
   select(-c(3:5, 8:20)) %>%
   pivot_longer(cols = starts_with("..."),
                names_to = "iteration",
@@ -145,17 +146,17 @@ wc_long_full <- bind_cols(wc_matches_full, result_matrix_full) %>%
 ```
 
 ```{r}
-wc_long_full <- wc_long_full %>% mutate(team1points = case_when(
+wc_long_full_22 <- wc_long_full_22 %>% mutate(team1points = case_when(
   which_team == "team1" ~ team1points,
   which_team == "team2" & team1points == 3 ~ 0,
   which_team == "team2" & team1points == 0 ~ 3,
   which_team == "team2" & team1points == 1 ~ 1
 ))
 
-wc_long_iter_full <- wc_long_full %>% group_by(iteration, team, group) %>% summarise(totalpoints = sum(team1points)) %>% arrange(group, iteration, totalpoints)
+wc_long_iter_full_22 <- wc_long_full_22 %>% group_by(iteration, team, group) %>% summarise(totalpoints = sum(team1points)) %>% arrange(group, iteration, totalpoints)
 
-wc_long_iter_full <-
-  wc_long_iter_full %>% 
+wc_long_iter_full_22 <-
+  wc_long_iter_full_22 %>% 
   group_by(group, iteration) %>%
   arrange(group, iteration, totalpoints) %>%
   mutate(
@@ -165,55 +166,56 @@ wc_long_iter_full <-
                            false = 0)
     )
 
-wc_long_iter_total <- wc_long_iter_full %>% 
+wc_long_iter_total_22 <- wc_long_iter_full_22 %>% 
   group_by(team, went_through) %>% 
   filter(went_through == "1") %>%
   summarise(numtimes = sum(went_through),
             proptimes = numtimes / niter) %>%
   mutate(group = case_when(
-  team == "Russia" | team == "Saudi Arabia" |
-    team == "Egypt" | team == "Uruguay" ~ "A",
+  team == "Qatar" | team == "Ecuador" |
+    team == "Senegal" | team == "Netherlands" ~ "A",
   
-  team == "Spain" | team == "Portugal" |
-    team == "Iran" | team == "Morocco" ~ "B",
+  team == "England" | team == "USA" |
+    team == "Iran" | team == "Wales" ~ "B",
   
-  team == "France" | team == "Denmark" |
-    team == "Peru" | team == "Australia" ~ "C",
+  team == "Argentina" | team == "Saudi Arabia" |
+    team == "Mexico" | team == "Poland" ~ "C",
   
-  team == "Croatia" | team == "Argentina" |
-    team == "Nigeria" | team == "Iceland" ~ "D",
+  team == "France" | team == "Australia" |
+    team == "Denmark" | team == "Tunisia" ~ "D",
+  
+  team == "Spain" | team == "Germany" |
+    team == "Japan" | team == "Costa Rica" ~ "E",
+  
+  team == "Belgium" | team == "Canada" |
+    team == "Morocco" | team == "Croatia" ~ "F",
   
   team == "Brazil" | team == "Serbia" |
-    team == "Switzerland" | team == "Costa Rica" ~ "E",
+    team == "Switzerland" | team == "Cameroon" ~ "G",
   
-  team == "Sweden" | team == "Mexico" |
-    team == "South Korea" | team == "Germany" ~ "F",
-  
-  team == "Belgium" | team == "England" |
-    team == "Tunisia" | team == "Panama" ~ "G",
-  
-  team == "Colombia" | team == "Japan" |
-    team == "Senegal" | team == "Poland" ~ "H"
+  team == "Portugal" | team == "Ghana" |
+    team == "Uruguay" | team == "South Korea" ~ "H"
 ))
 
-actually_went_through_18 <- c("France", "Argentina", "Uruguay", "Portugal",
-                           "Brazil", "Mexico", "Belgium", "Japan", 
-                           "Spain", "Russia", "Croatia", "Denmark",
-                           "Sweden", "Switzerland", "Colombia", "England")
+actually_went_through <- c("Netherlands", "USA", "Argentina", "Australia",
+                           "Japan", "Croatia", "Brazil", "South Korea", 
+                           "England", "Senegal", "France", "Poland",
+                           "Morocco", "Spain", "Portugal", "Switzerland")
+```
 
-wc_long_18_through <- wc_long_iter_total %>% filter(team %in% actually_went_through_18)
+```{r}
+wc_long_22_through <- wc_long_iter_total_22 %>% filter(team %in% actually_went_through)
 
-ggplot(data = wc_long_iter_total, aes(x = proptimes, y = fct_reorder(team, proptimes))) +
+ggplot(data = wc_long_iter_total_22, aes(x = proptimes, y = fct_reorder(team, proptimes))) +
   geom_point() + 
-  geom_segment(data = wc_long_iter_total, aes(x = 0, xend = proptimes, y = team, yend = team)) +
-  geom_segment(data = wc_long_18_through, aes(x = 0, xend = proptimes, y = team, yend = team), colour = "red") +
+  geom_segment(data = wc_long_iter_total_22, aes(x = 0, xend = proptimes, y = team, yend = team)) + 
+  geom_segment(data = wc_long_22_through, aes(x = 0, xend = proptimes, y = team, yend = team), colour = "red") +
   facet_wrap(~group, scales = "free_y") +
   theme_minimal() +
-  labs(x = "Proportion of Times a Team Advanced out of the Group Stages",
-       y = "Team",
-      title = "2018 World Cup Group Stage Predictions")
-## Costa Rica did not make it through, so when I went to add up the number of times they went through it was zero, and then I filtered out went_through == 0
+  labs(y = "Team",
+       title = "2022 World Cup Group Stage Predictions")
 
-save(wc_long_iter_total, file = "wc_long_iter_total.rda")
+save(wc_long_iter_total_22, file = "wc_long_iter_total_22.rda")
 ```
+
 

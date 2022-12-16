@@ -8,7 +8,7 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 ```
 
 # World Cup Prediction
@@ -22,34 +22,79 @@ knitr::opts_chunk$set(echo = TRUE)
 
 |             With such a large event, many want to predict the winner of this prestigious trophy. After 22 tournaments, only eight have managed to win the tournament. Many companies such as FiveThirtyEight and ESPN, to name only a couple, attempt to predict the winner of the upcoming tournament using many different methods. 
 
-|             [FiveThirtyEight](https://fivethirtyeight.com/features/how-our-2018-world-cup-predictions-work/) created a process to predict the winner of the 2018 tournament. This process is explained, along with the data being available in a [GitHub repository](https://github.com/fivethirtyeight/data/tree/master/world-cup-2018). Using their data, I am attempting to recreate the probabilities that each team will win each game in the group stage.
+|             [FiveThirtyEight](https://fivethirtyeight.com/features/how-our-2018-world-cup-predictions-work/) created a process to predict the winner of the 2018 tournament. This process is explained, along with the data being available in a [GitHub repository](https://github.com/fivethirtyeight/data/tree/master/world-cup-2018). Using their data, I am attempting to recreate the probabilities that each team will win each game in the group stage, and use this to determine who is most likely to make it past the group stage. I will also use this same process for the data from the 2022 tournament, which has currently been ongoing in the months of November and December.
 
 ## Methods
 
 |             To begin their predictions, each team's World Cup roster was given an SPI rating, which judged the strength of that team. Each team was given an offensive rating, which is "the number of goals that it would be expected to score against an average team on a neutral field" (Boice, 2018). The defensive rating followed the same situation, except the number of goals they would be expected to concede against an average team. The overall "match" SPI rating is the "percentage of points ... the team would be expected to take if the match were played over and over again" (Boice, 2018). This SPI rating is calculated using a database of international matches dating back to 1905! They also calculated a roster-based SPI rating which looked at each player, and how much they played, in what league, and how elite the competition they are facing each week is. 
 
-|             Once the SPI rating was calculated, they began by predicting the match scores, which are the number of goals that team would need to score to uphold their rating. Using the projected score, they completed a Poisson process where they predicted the probabilities that each team would score one goal, two goals, and so on up to ten goals (a little uncommon, but not outlandish). 
+|             Once the SPI rating was calculated, they began by predicting the match scores, which are the number of goals that team would need to score to uphold their rating. Using the projected score, they completed a Poisson process where they predicted the probabilities that each team would score zero goals, one goal, two goals, and so on up to ten goals (a little uncommon, but not outlandish). 
 
 |             The next step was to convert these to matrices, and multiply them together to determine the likelihood that one team would score x amount of goals *and* the other team would score y amount of goals. Using this matrix, I was able to calculate the cumulative probability, and generate a random value that would correspond to an outcome based on the matrix. Each match in the group stages was iterated 1000 times, from which we could determine the number of points each team would score in that iteration. Next, I was able to calculate the proportion of times that each team would advance out of the group stages (place in the top two out of four teams in their group).
 
 ## Results
 
-```{r, fig.cap="Figure 1: Proportion of times each team advanced out of their respective group"}
+### 2018 World Cup 
+
+```{r, echo=FALSE, fig.cap="Figure 1: Proportion of times each team advanced out of their respective group"}
 library(tidyverse)
 library(here)
 load(here("data/wc_long_iter_total.rda"))
-ggplot(data = wc_long_iter_total, aes(x = proptimes, y = fct_reorder(team, proptimes))) +
+wc_long_iter_total <- wc_long_iter_total %>% arrange(desc(proptimes))
+actually_went_through_18 <- c("France", "Argentina", "Uruguay", "Portugal",
+                           "Brazil", "Mexico", "Belgium", "Japan", 
+                           "Spain", "Russia", "Croatia", "Denmark",
+                           "Sweden", "Switzerland", "Colombia", "England")
+
+wc_long_18_through <- wc_long_iter_total %>% filter(team %in% actually_went_through_18)
+
+(ggplot(data = wc_long_iter_total, aes(x = proptimes, y = fct_reorder(team, proptimes))) +
   geom_point() + 
   geom_segment(data = wc_long_iter_total, aes(x = 0, xend = proptimes, y = team, yend = team)) +
-  facet_wrap(~group, scales = "free_y")
+  geom_segment(data = wc_long_18_through, aes(x = 0, xend = proptimes, y = team, yend = team), colour = "red") +
+  facet_wrap(~group, scales = "free_y") +
+  theme_minimal() +
+  labs(x = "Proportion of Times a Team Advanced out of the Group Stages",
+       y = "Team",
+      title = "2018 World Cup Group Stage Predictions"))
 ```
 
-|             From Figure 1, we are able to see that the teams that made it through the highest proportion of times were Argentina, Brazil, England as well as a few others. All of these teams have previously won the World Cup, and made it out of their groups in the 2018 tournament. The teams that were predicted to make it out the least number of times were Australia, Iran, and South Korea to name a few.
+|             From Figure 1, we are able to see that the teams that made it through the highest proportion of times were `r wc_long_iter_total$team[1]` (`r wc_long_iter_total$proptimes[1]`), `r wc_long_iter_total$team[2]` (`r wc_long_iter_total$proptimes[2]`), and `r wc_long_iter_total$team[3]` (`r wc_long_iter_total$proptimes[3]`). Possibly the most surprising piece of information however is that Germany were the favorites for their groups, however did not actually make it out of the group stage, with Sweden and Mexico advancing instead. The only teams that were expected to advance and did not were Poland and Germany. France were one of the favorites, and end up beating Croatia in the final and winning the whole tournament.
+
+### 2022 World Cup 
+
+```{r, echo=FALSE, fig.cap="Figure 2: Proportion of times each team advanced out of their respective group"}
+library(tidyverse)
+library(here)
+load(here("data/wc_long_iter_total_22.rda"))
+actually_went_through <- c("Netherlands", "USA", "Argentina", "Australia",
+                           "Japan", "Croatia", "Brazil", "South Korea", 
+                           "England", "Senegal", "France", "Poland",
+                           "Morocco", "Spain", "Portugal", "Switzerland")
+
+wc_long_22_through <- wc_long_iter_total_22 %>% filter(team %in% actually_went_through)
+
+wc_long_iter_total_22 <- wc_long_iter_total_22 %>% arrange(desc(proptimes))
+
+(ggplot(data = wc_long_iter_total_22, aes(x = proptimes, y = fct_reorder(team, proptimes))) +
+  geom_point() + 
+  geom_segment(data = wc_long_iter_total_22, aes(x = 0, xend = proptimes, y = team, yend = team)) + 
+  geom_segment(data = wc_long_22_through, aes(x = 0, xend = proptimes, y = team, yend = team), colour = "red") +
+  facet_wrap(~group, scales = "free_y") +
+  theme_minimal() +
+  labs(x = "Proportion of Times a Team Advanced out of the Group Stages",
+       y = "Team",
+       title = "2022 World Cup Group Stage Predictions"))
+```
+
+|             From Figure 2, we are able to see that the teams that made it through the highest proportion of times in 2022 were `r wc_long_iter_total_22$team[1]` (`r wc_long_iter_total_22$proptimes[1]`), `r wc_long_iter_total_22$team[2]` (`r wc_long_iter_total_22$proptimes[2]`), and `r wc_long_iter_total_22$team[3]` (`r wc_long_iter_total_22$proptimes[3]`) Possibly the most surprising piece of information however is that Germany again were the favorites for their group, however did not actually make it out of the group stage, with Spain and Japan advancing instead. This year had quite a lot more upsets, with four teams who were expected to advance not doing so: Mexico, Denmark, Germany, Uruguay. Australia who were predicted last in the group surprisingly made it out of their group.
 
 ## Discussion
 
-|             One of the more difficult aspects of this was that I was not able to completely replicate the probability matrix, as their article only gave limited information on the process. However, with the information given, I learned a lot about predicting World Cup games using skills I learned in linear algebra, probability, and data science. I had to begin by predicting only one game, and once that process was completed, I was able to expand out to one group of four teams. 
+|             One of the more difficult aspects of this was that I was not able to completely replicate the probability matrix, as their article only gave limited information on the process. However, with the information given, I learned a lot about predicting World Cup games using skills I learned in linear algebra, probability, and data science. I had to begin by predicting only one game, and once that process was completed, I was able to expand out to one group of four teams. Then once one group was done, I was able to expand to the whole group stage, with eight groups.
 
-|             This process took much longer than I expected, and given I only had a semester to work, I was only able to predict the group stages. If given more time, I would be able to figure out a way to set up the knockout stage bracket, and then use the expected scores given to predict who would win that World Cup.
+|             The 2022 tournament is at a slightly different time compared to the 2018 version, as the COVID-19 pandemic and the heat in Qatar pushed the tournament into November, rather than June and July. Many players are midway through their seasons, which caused quite a few injuries to star players. We have seen the 2022 tournament be one of the most exciting to watch because of players such as Lionel Messi, Cristiano Ronaldo, and Neymar Jr playing in their last World Cup. Also, this tournament's upsets have shocked many, with some favorites being knocked out in the group stages.
+
+|             This process took much longer than I expected, and given I only had a semester to work, I was only able to predict the group stages. If given more time, I would be able to figure out a way to set up the knockout stage bracket, and then use the expected scores given to predict who would win that World Cup. This would be quite difficult as you would need to find a way to include the tie breakers, which include point, goal differential, and yellow card accumulation. Once this was completed, you would need to set up a bracket, where the first placed team in one group plays the second placed team in another group.
 
 ## Appendix

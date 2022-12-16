@@ -1,0 +1,184 @@
+---
+title: "2021 Survey Questions"
+author: "Trent Meyer"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Questions:
+- What is your gender? 
+  + Male 
+  + Female   
+  + Genderqueer / Gender Non-conforming 
+  + Preferred identity (in addition to or not listed above):                    ______________________________
+  + Prefer not to state  
+
+
+- What is your class year?
+  + First-Year
+  + Sophomore
+  + Junior
+  +	Senior 
+  + Prefer not to state
+
+- On average, how much time do you engage in physical activity each day(including outdoor/indoor exercise, exerciew at the gym, and athletic practices and performances)?
+  + Walking around campus ONLY (to class, Student Center, to get food, etc)
+  + Less than 30 minutes physical activity per day
+  + 30 minutes – 60 minutes physical activity per day
+  + More than 60 minutes physical activity per day
+  + Prefer not to state
+  
+
+- Do you participate in a varsity or club sports team here are SLU?
+  + Yes, I play a varsity sport
+  + Yes, I play a club sport
+  + Yes, I play a club sport and a varsity sport
+  +	No, I don’t play varsity or club sports
+  +	Prefer not to state
+  
+- Please indicate how often do you make “healthy” food choices while at SLU:
+  +	Most of the time
+  + Some of the time
+  + Never
+  + Not sure
+  + Prefer not to state
+
+- How much water do you usually drink daily? 
+  + 16 ounces (approximately 500 mL) 
+  + 32 ounces (approximately 1 L)
+  + 64 ounces (approximately 2 L)
+  +	More than 64 ounces 
+  + Prefer not to state
+  
+- How often do you fill a water bottle at the water bottle filling stations on campus?
+  + More than once each day
+  + Once a day
+  + Once every few days
+  + Once a week or less
+  + Prefer not to state
+  
+- On average, how many hours do you sleep per night while at SLU?
+  + Less than 4 hours
+  + 4-6 hours
+  + 6-8 hours
+  + More than 8 hours
+  + Prefer not to state
+  
+- Please indicate your average stress level while at SLU:
+  + Highly stressed
+  + Moderately stressed
+  + Low stress
+  + No stress at all
+  + Prefer not to state
+  
+- How often do you experience the following illnesses PER SEMESTER? (In a grid format, Options will be: 1 time, 2 times, 3 times, or more than 3 times)
+  + Ear infection
+  + Sinus infection
+  + Bronchitis
+  + Pink-eye
+  + Strep throat
+  + Mononecleosis (mono)
+  
+- How frequently do you experience a cold or respiratory illness?
+  + 0-1 time per semester
+  + 2-3 times per semester
+  + 4 or more times per semester
+  + Prefer not to state
+  
+- Which of these water bottle filling stations have you ever used? (Choose all that apply)
+  + Rebert North
+  + Fox (Madill) Hall - Lobby
+  + Fox (Madill) Hall - 2nd Floor
+  + Newell Field House
+  + Sullivan Student Center
+  + Sykes Residence
+  + Hepburn Hall
+  + ODY - Basement
+  + ODY - Main Floor
+  + Whitman Hall
+  + Priest College
+  + Payson Hall 
+  + Kirk Douglas Hall
+  + I have not used any of these
+  
+- Which image best represents what you do when filling your bottle?
+  + Image with bottle far away from spout
+  + Image with bottle touching/around spout
+  
+- Do you avoid using a water bottle filling station when you see a red filter status?
+  + Yes
+  + No
+  + I use it if there is no other convenient option
+  
+- Please indicate your level of agreement with the following statements:
+- The water bottle filling stations prevent use of disposable plastic water bottles
+  + Strongly disagree
+  + Somewhat disagree
+  + Neutral
+  + Somewhat agree
+  + Strongly agree
+- The water bottle filling stations make it easier to drink more water
+  + Strongly disagree
+  + Somewhat disagree
+  + Neutral
+  + Somewhat agree
+  + Strongly agree
+-	The water from the water bottle filling stations is more chemically pure than tap water
+  + Strongly disagree
+  + Somewhat disagree
+  + Neutral
+  + Somewhat agree
+  + Strongly agree
+- The water from the water bottle filling stations tastes better than tap water
+  + Strongly disagree
+  + Somewhat disagree
+  + Neutral
+  + Somewhat agree
+  + Strongly agree
+- The water from the water bottle filling stations is safer to drink than tap water (no bacteria, viruses, pathogens)
+  + Strongly disagree
+  + Somewhat disagree
+  + Neutral
+  + Somewhat agree
+  + Strongly agree
+- The water bottle filling stations are clean
+  + Strongly disagree
+  + Somewhat disagree
+  + Neutral
+  + Somewhat agree
+  + Strongly agree
+  
+- How frequently do you clean your reusable water bottle?
+  + Every day
+  + Every few days
+  + Once a week
+  + Once a month or less frequently
+  + Never
+  + I don't use a reusable water bottle
+  
+- How do you clean your reusable water bottle?
+  + Rinse with just water
+  + Clean with soap and water by hand OR in a dishwasher
+  + Other: please specify
+    ______________________________
+    
+- If you can't conveniently get to a water bottle filling station, how do you typically get your water?
+  + Regular water fountain
+  + Sink in a bathroom
+  + Sink in a majors room or common room in my dorm
+  + Shower in a bathroom
+  + Other: please specify
+    ______________________________
+    
+- How has your usage of the water bottle filling stations changed when compared to Fall 2019 (before the COVID-19 pandemic)?
+  + I have used the filling stations less frequently
+  + I have used the filling stations the same amount
+  + I use the filling stations more frequently
+  + This is my first year on campus at SLU
+  
+- Please share any additional thoughts about the water bottle filling stations or water fountains on campus
+  

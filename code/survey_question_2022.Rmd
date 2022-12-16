@@ -1,0 +1,150 @@
+---
+title: "survey_questions_2022"
+author: "Trent Meyer"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Questions:
+- What is your gender? 
+  + Male 
+  + Female   
+  + Genderqueer / Gender Non-conforming 
+  + Gender identity, in addition to or not listed above (please specify):                    ______________________________
+  + Prefer not to state
+  
+- What is your class year?
+  + First-Year
+  + Sophomore
+  + Junior
+  +	Senior 
+  + Prefer not to state
+
+- How much water do you usually drink daily? 
+  + 16 ounces (approximately 500 mL) 
+  + 32 ounces (approximately 1 L)
+  + 64 ounces (approximately 2 L)
+  +	More than 64 ounces 
+  + Prefer not to state
+  
+- How often do you fill a water bottle at the water bottle filling stations on campus?
+  + More than once each day
+  + Once a day
+  + Once every few days
+  + Once a week or less
+  + Prefer not to state
+  
+- How frequently do you clean your reusable water bottle?
+  + Every day
+  + Every few days
+  + Once a week
+  + Once a month or less frequently
+  + Never
+  + I don't use a reusable water bottle
+
+- On average, how many hours do you sleep per night at SLU if you have class the next day (week nights)?
+  + Less than 4 hours
+  + 4-6 hours
+  + 6-8 hours
+  + More than 8 hours
+  + Prefer not to state
+  
+- Please indicate your average stress level while at SLU:
+  + Highly stressed
+  + Moderately stressed
+  + Low stress
+  + No stress at all
+  + Prefer not to state
+  
+- How often do you experience the following illnesses PER SEMESTER? (In a grid format, Options will be: 1 time, 2 times, 3 times, or more than 3 times)
+  + Ear infection
+  + Sinus infection
+  + Bronchitis
+  + Pink-eye
+  + Strep throat
+  + Mononecleosis (mono)
+  
+- How frequently do you experience a cold or respiratory illness?
+  + 0-1 time per semester
+  + 2-3 times per semester
+  + 4 or more times per semester
+  + Prefer not to state
+  
+- Which of these water bottle filling stations have you ever used? (Choose all that apply)
+  + Rebert North
+  + Fox (Madill) Hall - Lobby
+  + Fox (Madill) Hall - 2nd Floor
+  + Sullivan Student Center - 1st Floor
+  + Sullivan Student Center - 3rd Floor
+  + Sykes Residence
+  + Hepburn Hall
+  + ODY - Basement
+  + ODY - Main Floor
+  + Whitman Hall
+  + Priest College
+  + Payson Hall 
+  + Atwood Hall
+  + Kirk Douglas Hall
+  + Newell Field House
+  + Lee Hall
+  + Dean Eaton - Near vending machines/exit by Carnegie
+  + Dean Eaton - Near exit by Whitman
+  + I have not used any of these
+  
+- Please indicate your level of agreement with the following statements:
+-	The water from the water bottle filling stations is more chemically pure than tap water
+    + Strongly disagree
+    + Somewhat disagree
+    + Neutral
+    + Somewhat agree
+    + Strongly agree
+- The water from the water bottle filling stations is safer to drink than tap water (no bacteria, viruses, pathogens)
+  + Strongly disagree
+  + Somewhat disagree
+  + Neutral
+  + Somewhat agree
+  + Strongly agree
+- The water bottle filling stations are clean
+  + Strongly disagree
+  + Somewhat disagree
+  + Neutral
+  + Somewhat agree
+  + Strongly agree
+- I can easily access a water bottle filling station near where I live on campus
+  + Strongly disagree
+  + Somewhat disagree
+  + Neutral
+  + Somewhat agree
+  + Strongly agree
+- I can easily access a water bottle filling station near where I have the majority of my classes
+  + Strongly disagree
+  + Somewhat disagree
+  + Neutral
+  + Somewhat agree
+  + Strongly agree
+- There are an adequate number of water bottle filling stations around campus
+  + Strongly disagree
+  + Somewhat disagree
+  + Neutral
+  + Somewhat agree
+  + Strongly agree
+  
+- If you can't conveniently get to a water bottle filling station, how do you typically get your water?
+  ______________________________
+  
+- How has your CURRENT usage of the water bottle filling stations (Fall 2021 to present) changed compared to the last academic year (Fall 2020, Spring & Summaer 2021)?
+  + I have used the filling stations less frequently
+  + I have used the filling stations the same amount
+  + I use the filling stations more frequently
+  + This is my first year on campus at SLU
+  
+- Did you fill out our water bottle filling station survey last Spring?
+  + Yes
+  + No
+  + Unsure
+  
+- Please share any additional thoughts about the water bottle filling stations or water fountains on campus

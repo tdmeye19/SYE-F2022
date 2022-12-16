@@ -1,0 +1,55 @@
+---
+title: "informed_consent_2021"
+author: "Trent Meyer"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# IRB Consent Form
+
+We appreciate your interest in our survey!
+
+This survey aims to investigate the usage of the water bottle filling stations on St. Lawrence University campus. Upon completion of the survey, participants are eligible for a drawing for one of three Amazon gift cards ($50 each). To enter the drawing, at the end of the survey participants will be directed to a separate site that is NOT connected to their unique responses. Responses will be analyzed and presented in aggregate (not individually) and serve as the basis for reports that will be shared with the Facilities Operations and other similar relevant departments on campus. The collected data may be also included in internal St. Lawrence University poster session and an article written in the Hill News.
+
+This survey could cause participants to think more about their use of these filling stations and may raise concern about the water bottle filling stations’ safety. For more specific help and support relating to these concerns, please contact your personal healthcare provider or providers at the SLU Student Health Center.
+
+- Survey Specifics:
+  + Participants must be 18 years or older and can be on-campus or off-campus.
+  + The survey will take no more than 10 minutes to complete.
+  + The survey is anonymous, meaning that participants will not be asked to provide identifying information.
+  + Participants can skip any questions they choose or quit the survey at any time.
+  + However, exiting the survey will forfeit eligibility to enter for a chance to win one of the three Amazon gift cards. Please note that entering the drawing will require participants to provide their name and contact information, but, as noted above, this information will NOT be connected to the participant’s survey responses.
+  + Only the student researcher and principle investigator will have access to the recorded data, which will be stored and secured in the Qualtrics software program with password protection.
+
+Resources for more information:
+
+- *Health and Counseling Services*
+  + St. Lawrence University
+  + 76 Park Street
+  + 315-229-5392
+  + Canton, NY 13617
+
+Please contact Dr. Heckman if you would like to view the summarized data after completion of the survey (May 2021) or to ask any further questions.
+
+Thank you!
+				
+- Karin Heckman PhD, RD			    
+  + St. Lawrence University				
+  + Assoc. Professor of Biology  
+  + 315-229-5137
+  + kheckman@stlawu.edu 
+
+- Trent Meyer '23
+  + Statistics Major
+  + Public Health Minor
+  
+#
+
+- Choose a box below to either confirm or deny giving your informed consent to participate in this survey.
+  +	I have read the information above, fit the requirements listed, and give my informed consent to participate.
+  +	I have read the information above and DO NOT give my informed consent to participate.
+
