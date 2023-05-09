@@ -15,7 +15,7 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 # World Cup Prediction
 ## Introduction
 
-|             The FIFA World Cup is an event that grips the attention of soccer (or fútbol, football depending on where you are in the world) fans all across the world. This event occurs once every four years, bringing together millions of individuals from six different continents and a wide range of cultures. To have your nation qualify for the World Cup is quite prestigious as only 32 countries (48 in 2026) are able to do so. This rigorous qualifying schedule involves playing the top teams in your region over the course of about two years prior to the next World Cup. 
+|             The FIFA World Cup is an event that grips the attention of soccer (or fútbol, football depending on where you are in the world) fans all across the world. This event occurs once every four years, bringing together millions of individuals from a wide range of cultures all over the world. To have your nation qualify for the World Cup is quite prestigious as only 32 teams (increased to 48 teams in 2026) are able to do so. This rigorous qualifying schedule involves playing the top teams in your region over the course of about two years prior to the next World Cup. 
 
 |             The United States, despite not being completely enthralled like say Brazil, still nonetheless sees a magic atmosphere surrounding the tournament. However, in 2018 the United States lost to Trinidad & Tobago, a team they were supposed to easily beat, in their last qualifying game which effectively knocked them out of that cycle's tournament. This sparked quite a long chain of events in the United States Soccer Federation (USSF, the main governing body for soccer and the national teams) over the next four years. This included completely revamping the youth development system, hiring a new manager, and phasing out all of the aging players in favor for bright, up and coming stars making their presence known in European academies.
 
@@ -37,7 +37,7 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
 ### 2018 World Cup 
 
-```{r, echo=FALSE, fig.cap="Figure 1: Proportion of times each team advanced out of their respective group"}
+```{r, echo=FALSE, fig.cap="Proportion of times each team advanced out of their respective group"}
 library(tidyverse)
 library(here)
 load(here("data/wc_long_iter_total.rda"))
@@ -65,7 +65,7 @@ wc_long_18_through <- wc_long_iter_total %>% filter(team %in% actually_went_thro
 
 ### 2022 World Cup 
 
-```{r, echo=FALSE, fig.cap="Figure 2: Proportion of times each team advanced out of their respective group"}
+```{r, echo=FALSE, fig.cap="Proportion of times each team advanced out of their respective group"}
 library(tidyverse)
 library(here)
 load(here("data/wc_long_iter_total_22.rda"))
@@ -100,4 +100,6 @@ wc_long_iter_total_22 <- wc_long_iter_total_22 %>% arrange(desc(proptimes))
 
 |             This process took much longer than I expected, and given I only had a semester to work, I was only able to predict the group stages. If given more time, I would be able to figure out a way to set up the knockout stage bracket, and then use the expected scores given to predict who would win that World Cup. This would be quite difficult as you would need to find a way to include the tie breakers, which include point, goal differential, and yellow card accumulation. Once this was completed, you would need to set up a bracket, where the first placed team in one group plays the second placed team in another group.
 
-## Appendix
+## Code Appendix
+```{r printcode, all-code, ref.label=knitr::all_labels(), echo=TRUE, eval=FALSE}
+```
