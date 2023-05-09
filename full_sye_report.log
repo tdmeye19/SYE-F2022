@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.4.27)  8 MAY 2023 21:10
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.4.27)  8 MAY 2023 21:56
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -601,65 +601,73 @@ Package pdftex.def Info: full_sye_report_files/figure-latex/locationplot-1.pdf  
 <full_sye_report_files/figure-latex/unnamed-chunk-2-1.pdf, id=177, 469.755pt x 325.215pt>
 File: full_sye_report_files/figure-latex/unnamed-chunk-2-1.pdf Graphic file (type pdf)
 <use full_sye_report_files/figure-latex/unnamed-chunk-2-1.pdf>
-Package pdftex.def Info: full_sye_report_files/figure-latex/unnamed-chunk-2-1.pdf  used on input line 561.
+Package pdftex.def Info: full_sye_report_files/figure-latex/unnamed-chunk-2-1.pdf  used on input line 563.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 <full_sye_report_files/figure-latex/unnamed-chunk-3-1.pdf, id=178, 469.755pt x 325.215pt>
 File: full_sye_report_files/figure-latex/unnamed-chunk-3-1.pdf Graphic file (type pdf)
 <use full_sye_report_files/figure-latex/unnamed-chunk-3-1.pdf>
-Package pdftex.def Info: full_sye_report_files/figure-latex/unnamed-chunk-3-1.pdf  used on input line 581.
+Package pdftex.def Info: full_sye_report_files/figure-latex/unnamed-chunk-3-1.pdf  used on input line 583.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 [9 <./full_sye_report_files/figure-latex/unnamed-chunk-2-1.pdf>] [10 <./full_sye_report_files/figure-latex/unnamed-chunk-3-1.pdf>]
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 633.
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 635.
 (/Users/trentmeyer/Library/TinyTeX/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 639.
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 641.
 
 LaTeX Font Warning: Font shape `T1/lmtt/bx/it' in size <10> not available
-(Font)              Font shape `T1/lmtt/b/sl' tried instead on input line 640.
+(Font)              Font shape `T1/lmtt/b/sl' tried instead on input line 642.
 
-LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 824.
+LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 849.
 (/Users/trentmeyer/Library/TinyTeX/texmf-dist/tex/latex/lm/ts1lmtt.fd
 File: ts1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 
 LaTeX Font Warning: Font shape `TS1/lmtt/bx/it' in size <10> not available
-(Font)              Font shape `TS1/lmtt/b/sl' tried instead on input line 846.
+(Font)              Font shape `TS1/lmtt/b/sl' tried instead on input line 874.
 
 [11]
-Underfull \vbox (badness 10000) detected at line 916
+Underfull \vbox (badness 10000) detected at line 955
  []
 
 
-Underfull \vbox (badness 10000) detected at line 916
+Underfull \vbox (badness 10000) detected at line 955
  []
 
 [12]
-Underfull \vbox (badness 10000) detected at line 916
+Underfull \vbox (badness 10000) detected at line 955
  []
 
 
-Underfull \vbox (badness 10000) detected at line 916
+Underfull \vbox (badness 10000) detected at line 955
  []
 
 [13]
-Underfull \vbox (badness 10000) detected at line 916
+Underfull \vbox (badness 10000) detected at line 955
  []
 
 
-Underfull \vbox (badness 10000) detected at line 916
+Underfull \vbox (badness 10000) detected at line 955
  []
 
 [14]
-Underfull \vbox (badness 10000) detected at line 916
+Underfull \vbox (badness 10000) detected at line 955
  []
 
 
-Underfull \vbox (badness 10000) detected at line 916
+Underfull \vbox (badness 10000) detected at line 955
  []
 
-[15{/Users/trentmeyer/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}] [16] (./full_sye_report.aux)
+[15{/Users/trentmeyer/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}]
+Underfull \vbox (badness 10000) detected at line 955
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 955
+ []
+
+[16] [17] (./full_sye_report.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
@@ -667,18 +675,18 @@ Package rerunfilecheck Info: File `full_sye_report.out' has not changed.
 (rerunfilecheck)             Checksum: 96214495B567F205592E7CE010929153;2306.
  ) 
 Here is how much of TeX's memory you used:
- 13725 strings out of 477961
- 218879 string characters out of 5837660
- 1889074 words of memory out of 5000000
+ 13726 strings out of 477961
+ 218886 string characters out of 5837660
+ 1892074 words of memory out of 5000000
  33616 multiletter control sequences out of 15000+600000
  563510 words of font info for 77 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  75i,9n,76p,528b,472s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </Users/trentmeyer/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></Users/trentmeyer/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></Users/trentmeyer/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb></Users/trentmeyer/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb></Users/trentmeyer/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr17.pfb></Users/trentmeyer/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri10.pfb></Users/trentmeyer/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtk10.pfb></Users/trentmeyer/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtko10.pfb></Users/trentmeyer/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb>
-Output written on full_sye_report.pdf (16 pages, 311089 bytes).
+Output written on full_sye_report.pdf (17 pages, 313133 bytes).
 PDF statistics:
- 296 PDF objects out of 1000 (max. 8388607)
- 243 compressed objects within 3 object streams
- 60 named destinations out of 1000 (max. 500000)
+ 301 PDF objects out of 1000 (max. 8388607)
+ 247 compressed objects within 3 object streams
+ 61 named destinations out of 1000 (max. 500000)
  167 words of extra memory for PDF output out of 10000 (max. 10000000)
 

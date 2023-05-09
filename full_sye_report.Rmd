@@ -129,7 +129,11 @@ survey_full <- survey_full %>% mutate(year = fct_relevel(year, c("2022", "2021")
   filter(filling_frequency != "",
          filling_frequency != "Prefer not to state")
 
+## relevel the year variable, and filter out blank responses or where
+## they preferred not to state their response
+
 ## creating a plot colored by year, that shows the proportion of each factor level
+## for daily water consumption
 (ggplot(data = survey_full, aes(x = daily_water, y = after_stat(prop),
                                fill = year, group = year)) +
   geom_bar(position = "dodge") +
@@ -153,6 +157,7 @@ survey_full <- survey_full %>% mutate(year = fct_relevel(year, c("2022", "2021")
 ## filter out "" values
 ## drop that level from the factor after filtering
 ## also get rid of Prefer not to state and then add in caption
+
 ggplot(data = survey_full, aes(x = filling_frequency, y = after_stat(prop),
                                fill = year, group = year)) +
   geom_bar(position = "dodge") + 
@@ -166,7 +171,8 @@ ggplot(data = survey_full, aes(x = filling_frequency, y = after_stat(prop),
   theme(axis.text.x = element_text(size = 12),
         axis.text.y = element_text(size = 12),
         legend.position = "bottom")
-  
+## creating a plot colored by year, that shows the proportion of each factor level
+## for how often they used the filling stations
 ```
 
 |             Respondents were asked to report their level of agreement with six statements relating to the water bottle filling stations (Fig. 3). “Somewhat agree” and “Strongly agree” responses were grouped into “Agree”; while the same was done for the “Disagree” responses (Fig. 3).
@@ -176,20 +182,23 @@ ggplot(data = survey_full, aes(x = filling_frequency, y = after_stat(prop),
 ```{r agreementstatements, fig.cap="Respondents' perception of filling stations, pooled “Somewhat agree” and “Strongly Agree” responses as “Agree”; the same was done for the “Disagree” responses", echo=FALSE, warning=FALSE, message=FALSE, fig.width=8}
 library(gridExtra)
 
-survey_full <- survey_full %>% mutate(year = fct_relevel(year, c("2022", "2021")))
-
-survey_full <- survey_full %>% filter(chemically_pure != "",
-                                      safer_to_drink != "",
-                                      clean != "")
+survey_full <- survey_full %>% 
+  mutate(year = fct_relevel(year, c("2022", "2021"))) %>%
+  filter(chemically_pure != "",
+         safer_to_drink != "",
+         clean != "")
+## relevel the year variable and filter out blank responses
 
 library(forcats)
 survey_full$chemically_pure <- fct_collapse(survey_full$chemically_pure, 
                                             Agree = c("Somewhat agree", 
                                                       "Strongly agree"))
+## group together somewhat agree and strongly agree into an agree level
 
 survey_full$chemically_pure <- fct_collapse(survey_full$chemically_pure, 
                                             Disagree = c("Somewhat disagree", 
                                                          "Strongly disagree"))
+## group together somewhat disagree and strongly disagree into a disagree level
 
 chempureplot <- ggplot(data = survey_full, aes(x = chemically_pure, y = after_stat(prop),
                                fill = year, group = year)) +
@@ -203,14 +212,19 @@ chempureplot <- ggplot(data = survey_full, aes(x = chemically_pure, y = after_st
   theme(axis.text.x = element_text(size = 12),
         axis.text.y = element_text(size = 12),
         axis.title.y = element_text(size = 12))
+## create a plot colored by year that shows the proportion of each factor level
+## for the extent to which they agreed that the water from the filling 
+## stations is more chemically pure than tap water
 
 survey_full$safer_to_drink <- fct_collapse(survey_full$safer_to_drink, 
                                            Agree = c("Somewhat agree", 
                                                      "Strongly agree"))
+## group together somewhat agree and strongly agree into an agree level
 
 survey_full$safer_to_drink <- fct_collapse(survey_full$safer_to_drink, 
                                            Disagree = c("Somewhat disagree", 
                                                         "Strongly disagree"))
+## group together somewhat disagree and strongly disagree into a disagree level
 
 safertodrinkplot <- ggplot(data = survey_full, 
                            aes(x = safer_to_drink, y = after_stat(prop),
@@ -225,14 +239,19 @@ safertodrinkplot <- ggplot(data = survey_full,
   theme(axis.text.x = element_text(size = 12),
         axis.text.y = element_text(size = 12),
         axis.title.y = element_text(size = 12))
+## create a plot colored by year that shows the proportion of each factor level
+## for the extent to which they agreed that the water from the filling 
+## stations is safer to drink than tap water
 
 survey_full$clean <- fct_collapse(survey_full$clean, 
                                   Agree = c("Somewhat agree", 
                                             "Strongly agree"))
+## group together somewhat agree and strongly agree into an agree level
 
 survey_full$clean <- fct_collapse(survey_full$clean, 
                                   Disagree = c("Somewhat disagree", 
                                                "Strongly disagree"))
+## group together somewhat disagree and strongly disagree into a disagree level
 
 cleanplot <- ggplot(data = survey_full, aes(x = clean, y = after_stat(prop),
                                fill = year, group = year)) +
@@ -246,8 +265,11 @@ cleanplot <- ggplot(data = survey_full, aes(x = clean, y = after_stat(prop),
   theme(axis.text.x = element_text(size = 12),
         axis.text.y = element_text(size = 12),
         axis.title.y = element_text(size = 12))
+## create a plot colored by year that shows the proportion of each factor level
+## for the extent to which they agreed that the filling stations are clean
 
 agreementplots <- grid.arrange(chempureplot, safertodrinkplot, cleanplot)
+## arrange all three plots together
 ```
 
 |             Figure 4 shows the most frequently used locations on campus in each year. For both years, the top two were the location on the first floor of the student center and the first floor of the library, referred to as "ODY." The location outside of Newell Fieldhouse and the fitness center was the third most frequently used in 2021, and fourth most in 2022. We see the location on the third floor of the student center, put in before the Fall 2021-Spring 2022 academic year, was quite popular (Fig. 4).
@@ -255,6 +277,7 @@ agreementplots <- grid.arrange(chempureplot, safertodrinkplot, cleanplot)
 ```{r locationplot, fig.cap="Top five most used filling stations each year, top: 2021, bottom: 2022",echo=FALSE, warning=FALSE, message=FALSE, fig.width=8}
 load(file = here("data/location_df21.rda"))
 load(file = here("data/location_df22.rda"))
+## load in the location dataframes
 
 location_df21 <- location_df21 %>%
   mutate(
@@ -265,8 +288,8 @@ location_df21 <- location_df21 %>%
       Newell = "newell",
       `Fox Hall Lobby` = "madilllobby",
       Sykes = "sykes"
-    )
-  )
+    ))
+## recode some of the locations from 2021
 
 location_df22 <-
   location_df22 %>% mutate(
@@ -277,10 +300,13 @@ location_df22 <-
       Newell = "newell",
       `Student Center - 3rd Floor` = "sc3",
       Whitman = "whitman"
-    )
-  )
+    ))
+## recode some of the locations from 2022
 
-location_df22_top <- location_df22 %>% arrange(desc(totalrespondents)) %>% ungroup %>% slice(1:5)
+location_df22_top <- location_df22 %>% 
+  arrange(desc(totalrespondents)) %>% 
+  ungroup %>% slice(1:5)
+## create a dataframe with the top five most frequently used locations in 2022
 
 ## creating a plot to see which locations are used the most often in '22
 locationplot22 <- ggplot(data = location_df22_top, aes(x = fct_reorder(location, totalrespondents), y = prop)) +
@@ -291,10 +317,10 @@ locationplot22 <- ggplot(data = location_df22_top, aes(x = fct_reorder(location,
   theme_minimal(base_size = 13) +
   ylim(0, 0.9)
 
-## legend on bottom instead of side
-
 location_df21_top <- location_df21 %>% 
-  arrange(desc(totalrespondents)) %>% ungroup() %>% slice(1:5)
+  arrange(desc(totalrespondents)) %>% 
+  ungroup() %>% slice(1:5)
+## create a dataframe with the top five most frequently used locations in 2021
 
 ## creating a plot to see which locations are used the most often in '21
 locationplot21 <- ggplot(data = location_df21_top, aes(x = fct_reorder(location, totalrespondents), y = prop)) +
@@ -306,8 +332,6 @@ locationplot21 <- ggplot(data = location_df21_top, aes(x = fct_reorder(location,
   ylim(0, 0.9)
 
 locationplotfull <- grid.arrange(locationplot21, locationplot22)
-## do a top 5 and change scale so that they match 
-## x lim
 ```
 
 |             Respondents were asked for their additional thoughts regarding the filling stations, and their responses were analyzed for key words. The most common key words in 2021 were "more", "convenience", and "filter." In 2022, we still see "more" as the most common, however "filter" and "convenience" were the next most common.
@@ -352,12 +376,17 @@ library(tidyverse)
 library(here)
 load(here("data/wc_long_iter_total.rda"))
 wc_long_iter_total <- wc_long_iter_total %>% arrange(desc(proptimes))
+## arrange to see which teams made it out of the group stages
+## the highest proportion of times
+
 actually_went_through_18 <- c("France", "Argentina", "Uruguay", "Portugal",
                            "Brazil", "Mexico", "Belgium", "Japan", 
                            "Spain", "Russia", "Croatia", "Denmark",
                            "Sweden", "Switzerland", "Colombia", "England")
+## create a list of teams that actually made it through in 2018
 
 wc_long_18_through <- wc_long_iter_total %>% filter(team %in% actually_went_through_18)
+## create a data frame to filter out the teams that actually made it through
 
 (ggplot(data = wc_long_iter_total, aes(x = proptimes, y = fct_reorder(team, proptimes))) +
   geom_point() + 
@@ -369,6 +398,8 @@ wc_long_18_through <- wc_long_iter_total %>% filter(team %in% actually_went_thro
   labs(x = "Proportion of Times a Team Advanced out of the Group Stages",
        y = "Team",
       title = "2018 World Cup Group Stage Predictions"))
+## create a plot with the proportion of times a team advanced out of the group stages
+## with the teams in red being the teams who actually made it out of the group stages
 ```
 
 |             From Figure 5, we are able to see that the teams that made it through the highest proportion of times were `r wc_long_iter_total$team[1]` (`r wc_long_iter_total$proptimes[1]`), `r wc_long_iter_total$team[2]` (`r wc_long_iter_total$proptimes[2]`), and `r wc_long_iter_total$team[3]` (`r wc_long_iter_total$proptimes[3]`). Possibly the most surprising piece of information however is that Germany were the favorites for their groups, however did not actually make it out of the group stage, with Sweden and Mexico advancing instead. The only teams that were expected to advance and did not were Poland and Germany. France were one of the favorites, and end up beating Croatia in the final and winning the whole tournament.
@@ -383,10 +414,14 @@ actually_went_through <- c("Netherlands", "USA", "Argentina", "Australia",
                            "Japan", "Croatia", "Brazil", "South Korea", 
                            "England", "Senegal", "France", "Poland",
                            "Morocco", "Spain", "Portugal", "Switzerland")
+## create a list of teams that actually made it through in 2022
 
 wc_long_22_through <- wc_long_iter_total_22 %>% filter(team %in% actually_went_through)
+## create a data frame to filter out the teams that actually made it through
 
 wc_long_iter_total_22 <- wc_long_iter_total_22 %>% arrange(desc(proptimes))
+## arrange to see which teams made it out of the group stages
+## the highest proportion of times
 
 (ggplot(data = wc_long_iter_total_22, aes(x = proptimes, y = fct_reorder(team, proptimes))) +
   geom_point() + 
@@ -398,6 +433,8 @@ wc_long_iter_total_22 <- wc_long_iter_total_22 %>% arrange(desc(proptimes))
   labs(x = "Proportion of Times a Team Advanced out of the Group Stages",
        y = "Team",
        title = "2022 World Cup Group Stage Predictions"))
+## create a plot with the proportion of times a team advanced out of the group stages
+## with the teams in red being the teams who actually made it out of the group stages
 ```
 
 |             From Figure 6, we are able to see that the teams that made it through the highest proportion of times in 2022 were `r wc_long_iter_total_22$team[1]` (`r wc_long_iter_total_22$proptimes[1]`), `r wc_long_iter_total_22$team[2]` (`r wc_long_iter_total_22$proptimes[2]`), and `r wc_long_iter_total_22$team[3]` (`r wc_long_iter_total_22$proptimes[3]`) Possibly the most surprising piece of information however is that Germany again were the favorites for their group, however did not actually make it out of the group stage, with Spain and Japan advancing instead. This year had quite a lot more upsets, with four teams who were expected to advance not doing so: Mexico, Denmark, Germany, Uruguay. Australia who were predicted last in the group surprisingly made it out of their group.
