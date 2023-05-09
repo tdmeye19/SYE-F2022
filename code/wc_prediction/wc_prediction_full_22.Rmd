@@ -210,12 +210,18 @@ ggplot(data = wc_long_iter_total_22, aes(x = proptimes, y = fct_reorder(team, pr
   geom_point() + 
   geom_segment(data = wc_long_iter_total_22, aes(x = 0, xend = proptimes, y = team, yend = team)) + 
   geom_segment(data = wc_long_22_through, aes(x = 0, xend = proptimes, y = team, yend = team), colour = "red") +
+  geom_point(data = wc_long_22_through, aes(x = proptimes, y = team), colour = "red") +
   facet_wrap(~group, scales = "free_y") +
-  theme_minimal() +
+  theme_minimal(base_size = 17) +
   labs(y = "Team",
+       x = "Probability Out of Group Stage",
        title = "2022 World Cup Group Stage Predictions")
 
+ggsave("World_Cup_Plot.jpg")
+
 save(wc_long_iter_total_22, file = "wc_long_iter_total_22.rda")
+
+
 ```
 
 

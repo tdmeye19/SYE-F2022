@@ -2,7 +2,8 @@
 title: "World Cup Prediction Report"
 author: "Trent Meyer"
 date: "`r Sys.Date()`"
-output: 
+output:
+  pdf_document: default
   html_document:
     theme: cosmo
 ---
@@ -52,6 +53,7 @@ wc_long_18_through <- wc_long_iter_total %>% filter(team %in% actually_went_thro
   geom_point() + 
   geom_segment(data = wc_long_iter_total, aes(x = 0, xend = proptimes, y = team, yend = team)) +
   geom_segment(data = wc_long_18_through, aes(x = 0, xend = proptimes, y = team, yend = team), colour = "red") +
+  geom_point(data = wc_long_18_through, aes(x = proptimes, y = team), colour = "red") +
   facet_wrap(~group, scales = "free_y") +
   theme_minimal() +
   labs(x = "Proportion of Times a Team Advanced out of the Group Stages",
@@ -80,6 +82,7 @@ wc_long_iter_total_22 <- wc_long_iter_total_22 %>% arrange(desc(proptimes))
   geom_point() + 
   geom_segment(data = wc_long_iter_total_22, aes(x = 0, xend = proptimes, y = team, yend = team)) + 
   geom_segment(data = wc_long_22_through, aes(x = 0, xend = proptimes, y = team, yend = team), colour = "red") +
+  geom_point(data = wc_long_22_through, aes(x = proptimes, y = team), colour = "red") +
   facet_wrap(~group, scales = "free_y") +
   theme_minimal() +
   labs(x = "Proportion of Times a Team Advanced out of the Group Stages",

@@ -92,21 +92,6 @@ lower.tri(cumprobmatrix, diag = FALSE)
 upper.tri(cumprobmatrix, diag = FALSE)
 diag(cumprobmatrix)
 
-
-
-# team1_index_win <- c(2:6, 9:12, 16:18, 23:24, 30)
-# index_draw <- c(1, 8, 15, 22, 29, 36)
-# team2_index_win <- c(7, 13:14, 19:21, 25:28, 31:35)
-
-# create team1point and team2points x
-# pull()
-# mutate first
-# iterate one matchup, and then iterate for all of the teams
-# send an email when I push, figure out iterating for one matchup for Tuesday
-# make a function where you return a single value where the team
-# replicate something in purrr
-# modern data science with R 7.3 map()
-
 probindextib <- probindextib %>% mutate(result = case_when(
   rowvector > colvector ~ "Team 1 Wins",
   rowvector == colvector ~ "Draw",
@@ -221,7 +206,7 @@ oneteam_res <- map(1:niter, ~ predict_team1(proj_score1 = wc_iter |> slice(5) |>
 
 ## expand slowly: predict the score for team 1 for every row of the data set:
 ## wrap in for loop and change 5 to i
-niter <- 100 ## so messing around with code takes less time
+niter <- 10 ## so messing around with code takes less time
 result_matrix <- matrix(NA, nrow = nrow(wc_iter), ncol = niter)
 
 for (i in 1:nrow(wc_iter)) {
@@ -262,15 +247,6 @@ sum(match5_team1_result)/100
 ## Uruguay v Russia
 match6_team1_result <- result_matrix[6,]
 sum(match6_team1_result)/100
-
-## Russia: 2.07, 2.05
-## Saudi Arabia: 0.8, 0.82
-## Egypt: was not team1
-## Uruguay: 2.56, 1.35
-
-## How to figure out what Egypt got, and where to go from here
-## Each team should have number of points for three games, however not each team
-## was team1 every match they were in.
 ```
 
 
@@ -281,7 +257,7 @@ sum(match6_team1_result)/100
 #match1pred <- purrr::map(times, prediction(proj_score1 = 2.03, proj_score2 = 0.73))
 ##purrr::map(1:10, ~ prediction(proj_score1 = 2.03, proj_score2 = 0.73))
 proj_score1 = 1; proj_score2 = 2
-match1rep <- tibble(outcome = replicate(n = 1000, prediction(proj_score1, proj_score2)))
+match1rep <- tibble(outcome = replicate(n = 1000, predict_team1(proj_score1, proj_score2)))
 match1rep <- match1rep %>% group_by(outcome) %>% 
   summarise(total = n()) %>% 
   mutate(prop = total / 1000)
@@ -290,13 +266,13 @@ match1rep <- match1rep %>% group_by(outcome) %>%
 wc_iter <- wc_matches |> select(proj_score1, proj_score2, everything()) |> slice(1:48)
 wc_iter
 
+
+
 niter <- 10
 
-results <- rep(NA, nrow(wc_iter))
+results <- rep(NA, nrow(wc_matches_full))
 
-
-
-
+# results <- rep(NA, nrow(wc_iter))
 
 proj_score1list <- list(wc_matches$proj_score1)
 
@@ -321,3 +297,72 @@ map(1:1000, ~ prediction(proj_score1 = 2.03, proj_score2 = 0.73)) |>
   unlist()
 ```
 
+```{r}
+results_df <- as.matrix(result_matrix)
+
+wc_long <- bind_cols(wc_iter, results_df) %>%
+  select(-c(3:5, 8:20)) %>%
+  rename(
+    it1 = "...21",
+    it2 = "...22",
+    it3 = "...23",
+    it4 = "...24",
+    it5 = "...25",
+    it6 = "...26",
+    it7 = "...27",
+    it8 = "...28",
+    it9 = "...29",
+    it10 = "...30"
+  ) %>%
+  pivot_longer(cols = 5:14,
+               names_to = "iteration",
+               values_to = "team1points") %>%
+  pivot_longer(cols = 3:4,
+               names_to = "which_team",
+               values_to = "team") %>%
+  mutate(iteration = as.factor(iteration)) 
+# %>%
+#   mutate(iteration = fct_relevel(
+#     iteration,
+#     c(
+#       "it1",
+#       "it2",
+#       "it3",
+#       "it4",
+#       "it5",
+#       "it6",
+#       "it7",
+#       "it8",
+#       "it9",
+#       "it10"
+#     )
+#   ))
+
+wc_long <- wc_long %>% mutate(team1points = case_when(
+  which_team == "team1" ~ team1points,
+  which_team == "team2" & team1points == 3 ~ 0,
+  which_team == "team2" & team1points == 0 ~ 3,
+  which_team == "team2" & team1points == 1 ~ 1
+))
+
+wc_long_iter <- wc_long %>% group_by(iteration, team) %>% summarise(totalpoints = sum(team1points))
+
+wc_long_iter <- wc_long_iter %>% group_by(iteration) %>% arrange(iteration, totalpoints) 
+
+rep_ranks <- 4:1
+
+wc_long_iter <- wc_long_iter %>% mutate(rank = rep_ranks,
+                                        went_through = if_else(
+                                          rank < 3,
+                                          true = "Yes",
+                                          false = "No"
+                                        ))
+
+ggplot(data = wc_long, aes(x = iteration, y = team1points)) +
+  geom_col() +
+  facet_wrap(~team)
+
+ggplot(data = wc_long_iter, aes(x = iteration, y = went_through)) +
+  geom_col() + 
+  facet_wrap(~team)
+```
