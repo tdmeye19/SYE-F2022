@@ -26,6 +26,12 @@ knitr::opts_chunk$set(echo = TRUE, fig.pos = "H")
 
 In the first section of this document, I outline my work on the filling station survey. I then discuss the methods and results of the World Cup prediction project. All code is provided as an Appendix at the end of the document, and a GitHub repository for the projects can be found at <https://github.com/tdmeye19/SYE-F2022>. Note that the data for the filling station project must remain private; therefore, only the world cup prediction project is fully reproducible.
 
+# Acknowledgements
+
+|             I would like to thank Dr. Karin Heckman for her assistance during the independent study portion, which included gaining IRB approval and administering both surveys. This assistance allowed me to understand how the IRB process works, as well as how to create and administer surveys using Qualtrics.
+
+|             I would like to thank Dr. Matt Higham for his assistance during the SLU Fellowship, specifically in helping answer any questions related to the statistical analysis. His patience is greatly valued while I learned how to create visualizations and manipulate data in R, as well as make posters, presentations, and reports using R Markdown.
+
 # Assessment of Water Bottle Filling Station Use on St. Lawrence University Campus
 
 ## Introduction
