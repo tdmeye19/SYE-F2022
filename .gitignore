@@ -3,3 +3,8 @@
 .RData
 .Ruserdata
 sye_update.R
+data/location_df21.rda
+data/location_df22.rda
+data/survey_df21.rda
+data/survey_df22.rda
+data/survey_full.rda

@@ -5,6 +5,9 @@ date: "`r Sys.Date()`"
 toc: true
 toc-depth: 5
 urlcolor: blue
+header-includes: 
+  - \usepackage{setspace}\doublespacing
+  - \usepackage{float}
 output:
   pdf_document: default
   html_document:
@@ -13,12 +16,15 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, fig.pos = "H")
 ```
+
 
 # SYE Introduction
 
-|             When considering what to do for my SYE, I had two options. The first being to complete the rest of my SLU Fellowship research project: "Assessment of Water Bottle Filling Station Use on St. Lawrence University Campus", which I had started back in Spring 2021. After presenting at the Laurentian Weekend poster session, I took a look to see what I had left, and there was not a lot to do. With so little left to do, I began looking for smaller research projects that I could complete by the end of the semester. With the 2022 World Cup around the corner, I began to see many predictions and conversations about who was going to win. I wanted to see how the predictions worked, and this brought me to the second part of my SYE. I found an article from FiveThirtyEight that went over the basics of their predictions, and I wanted to recreate that using the data from their GitHub. This took much longer than expected, as I had a lot to learn about iterations, loops, and creating your own functions in R. By the end, I was able to recreate, to an extent, their table of probabilities that each team in the World Cup would advance out of the group states of the tournament.
+|             When considering what to do for my SYE, I had two options. The first was to complete the rest of my SLU Fellowship research project: "Assessment of Water Bottle Filling Station Use on St. Lawrence University Campus", which I had started back in Spring 2021. After presenting at the Laurentian Weekend poster session, I took a look to see what I had left, and there was not a lot to do. With so little left to do, I began looking for smaller research projects that I could complete by the end of the semester. With the 2022 World Cup around the corner, I began to see many predictions and conversations about who was going to win. I wanted to see how the predictions worked, and this brought me to the second part of my SYE. I found an article from FiveThirtyEight that went over the basics of their predictions, and I wanted to recreate that using the data from their GitHub. This took much longer than expected, as I had a lot to learn about iterations, loops, and creating your own functions in R. By the end, I was able to recreate, to an extent, their table of probabilities that each team in the World Cup would advance out of the group states of the tournament.
+
+In the first section of this document, I outline my work on the filling station survey. I then discuss the methods and results of the World Cup prediction project. All code is provided as an Appendix at the end of the document, and a GitHub repository for the projects can be found at <https://github.com/tdmeye19/SYE-F2022>. Note that the data for the filling station project must remain private; therefore, only the world cup prediction project is fully reproducible.
 
 # Assessment of Water Bottle Filling Station Use on St. Lawrence University Campus
 
