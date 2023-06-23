@@ -321,7 +321,8 @@ location_df22_top <- location_df22 %>%
 ## create a dataframe with the top five most frequently used locations in 2022
 
 ## creating a plot to see which locations are used the most often in '22
-locationplot22 <- ggplot(data = location_df22_top, aes(x = fct_reorder(location, totalrespondents), y = prop)) +
+locationplot22 <- ggplot(data = location_df22_top, 
+         aes(x = fct_reorder(location, totalrespondents), y = prop)) +
   geom_point(size = 5) + 
   geom_segment(aes(x=location, xend=location, y=0, yend=prop), size = 1.5) +
   coord_flip() +
@@ -335,7 +336,8 @@ location_df21_top <- location_df21 %>%
 ## create a dataframe with the top five most frequently used locations in 2021
 
 ## creating a plot to see which locations are used the most often in '21
-locationplot21 <- ggplot(data = location_df21_top, aes(x = fct_reorder(location, totalrespondents), y = prop)) +
+locationplot21 <- ggplot(data = location_df21_top, 
+         aes(x = fct_reorder(location, totalrespondents), y = prop)) +
   geom_point(size = 5) + 
   geom_segment(aes(x=location, xend=location, y=0, yend=prop), size = 1.5) +
   coord_flip() +
@@ -400,10 +402,13 @@ actually_went_through_18 <- c("France", "Argentina", "Uruguay", "Portugal",
 wc_long_18_through <- wc_long_iter_total %>% filter(team %in% actually_went_through_18)
 ## create a data frame to filter out the teams that actually made it through
 
-(ggplot(data = wc_long_iter_total, aes(x = proptimes, y = fct_reorder(team, proptimes))) +
+(ggplot(data = wc_long_iter_total, 
+        aes(x = proptimes, y = fct_reorder(team, proptimes))) +
   geom_point() + 
-  geom_segment(data = wc_long_iter_total, aes(x = 0, xend = proptimes, y = team, yend = team)) +
-  geom_segment(data = wc_long_18_through, aes(x = 0, xend = proptimes, y = team, yend = team), colour = "red") +
+  geom_segment(data = wc_long_iter_total, 
+               aes(x = 0, xend = proptimes, y = team, yend = team)) +
+  geom_segment(data = wc_long_18_through, 
+               aes(x = 0, xend = proptimes, y = team, yend = team), colour = "red") +
   geom_point(data = wc_long_18_through, aes(x = proptimes, y = team), colour = "red") +
   facet_wrap(~group, scales = "free_y") +
   theme_minimal() +
@@ -435,10 +440,13 @@ wc_long_iter_total_22 <- wc_long_iter_total_22 %>% arrange(desc(proptimes))
 ## arrange to see which teams made it out of the group stages
 ## the highest proportion of times
 
-(ggplot(data = wc_long_iter_total_22, aes(x = proptimes, y = fct_reorder(team, proptimes))) +
+(ggplot(data = wc_long_iter_total_22, 
+        aes(x = proptimes, y = fct_reorder(team, proptimes))) +
   geom_point() + 
-  geom_segment(data = wc_long_iter_total_22, aes(x = 0, xend = proptimes, y = team, yend = team)) + 
-  geom_segment(data = wc_long_22_through, aes(x = 0, xend = proptimes, y = team, yend = team), colour = "red") +
+  geom_segment(data = wc_long_iter_total_22, 
+               aes(x = 0, xend = proptimes, y = team, yend = team)) + 
+  geom_segment(data = wc_long_22_through, 
+               aes(x = 0, xend = proptimes, y = team, yend = team), colour = "red") +
   geom_point(data = wc_long_22_through, aes(x = proptimes, y = team), colour = "red") +
   facet_wrap(~group, scales = "free_y") +
   theme_minimal() +
